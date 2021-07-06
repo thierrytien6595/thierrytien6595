@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="70dp">
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/greencolor"
+        android:id="@+id/imv_mon"
+        />
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:id="@+id/tv_chonmon"
+        >
+        <TextView
+            android:id="@+id/tv_mon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Tên Món"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_gia_mon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Đơn giá"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_soluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:gravity="center"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/btn_cong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_btn_tru"
+        android:layout_marginLeft="5dp"
+        />
+
+</LinearLayout>

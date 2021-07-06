@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SANPHAM.SanPham">
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_caphe"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:text="CÀ PHÊ"></Button>
+
+        <Button
+            android:id="@+id/btn_nuocngot"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="NƯỚC NGỌT"></Button>
+
+        <Button
+            android:id="@+id/btn_tra"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="TRÀ"></Button>
+
+        <Button
+            android:id="@+id/btn_sinhto"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="SINH TỐ"></Button>
+
+        <Button
+            android:id="@+id/btn_nuocep"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="NƯỚC ÉP"></Button>
+
+        <Button
+            android:id="@+id/btn_yogurt"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="YOGURT"></Button>
+
+        <Button
+            android:id="@+id/btn_soda"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="SODA"></Button>
+
+        <Button
+            android:id="@+id/btn_daxay"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="ĐÁ XAY"></Button>
+
+        <Button
+            android:id="@+id/btn_kem"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="KEM"></Button>
+
+        <Button
+            android:id="@+id/btn_doan"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="ĐỒ ĂN"></Button>
+
+        <Button
+            android:id="@+id/btn_thuoc"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="THUỐC"></Button>
+
+        <Button
+            android:id="@+id/btn_khac"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="KHÁC"></Button>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_ban_chonmon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/menu_bar"
+        android:layout_toRightOf="@+id/menu_bar"
+        android:background="@color/teal_200"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="TÊN BÀN LỖI"
+        android:textSize="30dp"></TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rev_chonmon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ban_chonmon"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/menu_bar"
+        android:minHeight="400dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/menu_bar"
+        android:layout_alignParentRight="true"
+        android:background="@color/green"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rev_chonmon2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="200dp"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
