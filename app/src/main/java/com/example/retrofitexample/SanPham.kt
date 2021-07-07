@@ -17,13 +17,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,View.OnClickListener {
+class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChonAdapter.OnItemClickListener,View.OnClickListener {
     val SPDaChonList = mutableListOf<SPDaChonModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_san_pham)
+        btn_thongbao.visibility = View.GONE
         laytenban()
         setonclickbtn()
+        rev_chonmon2.apply {
+            layoutManager = LinearLayoutManager(this@SanPham)
+            adapter = SPDaChonAdapter(SPDaChonList,this@SanPham)
+        }
         laydanhsachmon()
     }
 
@@ -93,14 +98,27 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,View.OnC
                 SPDaChonList.add(SPDaChonModel(data.TENSP, 1))
             }
         else{// Nếu có rồi thì tăng số lượng lên
-                SPDaChonList.set(index,SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
             }
-            if (SPDaChonList != null) {
-                    rev_chonmon2.apply {
-                        layoutManager = LinearLayoutManager(this@SanPham)
-                        adapter = SPDaChonAdapter(SPDaChonList)
-                    }
+            if (SPDaChonList != emptyList<SPDaChonModel>()) {
+                    btn_thongbao.visibility=View.VISIBLE
+                    rev_chonmon2.adapter?.notifyDataSetChanged()
                 }
+                else {
+                btn_thongbao.visibility = View.INVISIBLE
+            }
+    }
 
+    override fun onBtnGiamClick(tensp: String) {
+        val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==tensp})
+        SPDaChonList.set(index, SPDaChonModel(tensp, SPDaChonList[index].SOLUONG - 1))
+        if (SPDaChonList[index].SOLUONG==0) SPDaChonList.removeAt(index)
+        rev_chonmon2.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onItemDaChonClick(data: SPDaChonModel) {
+        val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==data.TENSP})
+        SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG,"KHÔNG ĐƯỜNG"))
+        rev_chonmon2.adapter?.notifyDataSetChanged()
     }
 }

@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_marginTop="5dp"
     android:layout_height="wrap_content">
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
             android:id="@+id/tv_mon_dachon"
             android:layout_width="200dp"
@@ -12,10 +15,25 @@
             android:text="Tên Món"
             android:textSize="24sp" />
     <TextView
+        android:id="@+id/tv_chuthich"
+        android:text="chú thích"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        />
+</LinearLayout>
+    <TextView
         android:id="@+id/tv_soluong_dachon"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="0"
         android:textSize="24dp" />
+
+    <Button
+        android:id="@+id/btn_chuthich"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chuthich"
+        />
 </LinearLayout>

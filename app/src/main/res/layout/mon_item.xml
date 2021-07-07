@@ -34,18 +34,8 @@
             android:textSize="12sp"
             />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_soluong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:gravity="center"
-        android:textSize="30dp"
-        />
-
     <Button
-        android:id="@+id/btn_cong"
+        android:id="@+id/btn_giam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/img_btn_tru"

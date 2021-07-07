@@ -129,11 +129,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_chuthich"
+            app:layout_constraintEnd_toEndOf="@+id/btn_thongbao"
             app:layout_constraintHeight_max="200dp"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/dachon_item">
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:listitem="@layout/dachon_item"/>
+
+        <Button
+            android:id="@+id/btn_thongbao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THÔNG BÁO"
+            android:visibility="visible"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@+id/rev_chonmon2"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
