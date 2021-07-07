@@ -112,6 +112,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/menu_bar"
         android:minHeight="400dp"
+        tools:listitem="@layout/mon_item"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,7 +132,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="200dp"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/dachon_item">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

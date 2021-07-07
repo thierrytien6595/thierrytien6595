@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitexample.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_san_pham.*
-import kotlinx.android.synthetic.main.ban_item.view.*
 import kotlinx.android.synthetic.main.mon_item.view.*
 class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val listener: SanPhamAdapter.OnItemClickListener):
     RecyclerView.Adapter<SanPhamAdapter.PostViewHolder>() {
@@ -22,7 +20,6 @@ class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val 
         val currentItem = mModel[position]
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvGIASP.text = currentItem.GIASP
-        holder.tvMASP.text = currentItem.MASP
         val base_image_url = "http://192.168.1.5/thach/image/"
         Picasso.get().load(base_image_url+currentItem.HINHSP+".jpg").into(holder.imvHINHSP)
 
@@ -35,7 +32,6 @@ class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),View.OnClickListener{
         val tvTENSP: TextView = itemView.tv_mon
         val tvGIASP: TextView = itemView.tv_gia_mon
-        val tvMASP: TextView = itemView.tv_soluong
         val imvHINHSP: ImageView = itemView.imv_mon
 
         init {

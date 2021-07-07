@@ -1,5 +1,4 @@
 package com.example.retrofitexample
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +9,6 @@ import com.example.retrofitexample.BAN.ApiServiceBan
 import com.example.retrofitexample.BAN.BanAdapter
 import com.example.retrofitexample.BAN.BanModel
 import com.example.retrofitexample.BAN.ServiceGenerator
-import com.example.retrofitexample.SANPHAM.SanPham
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
