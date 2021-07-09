@@ -15,4 +15,7 @@ object ServiceGenerator {
     fun<T> buildService(service: Class<T>):T{
         return retrofit.create(service)
     }
+    fun<T> buildService1(service: Class<T>):T{
+        return retrofit.create(service)
+    }
 }

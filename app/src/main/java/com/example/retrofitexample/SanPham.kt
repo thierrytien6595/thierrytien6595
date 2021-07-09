@@ -11,6 +11,8 @@ import com.example.retrofitexample.SANPHAM.SanPhamAdapter
 import com.example.retrofitexample.SANPHAM.SanPhamModel
 import com.example.retrofitexample.SPDACHON.SPDaChonAdapter
 import com.example.retrofitexample.SPDACHON.SPDaChonModel
+import com.example.retrofitexample.SPDACHON.listmon
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_san_pham.*
 import retrofit2.Call
@@ -19,11 +21,14 @@ import retrofit2.Response
 
 class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChonAdapter.OnItemClickListener,View.OnClickListener {
     val SPDaChonList = mutableListOf<SPDaChonModel>()
+    var tenban: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_san_pham)
+        val intent = intent
+        tenban = intent.getStringExtra("TENBAN")
+        tv_ban_chonmon.text = tenban
         btn_thongbao.visibility = View.GONE
-        laytenban()
         setonclickbtn()
         rev_chonmon2.apply {
             layoutManager = LinearLayoutManager(this@SanPham)
@@ -54,10 +59,6 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             }
         })
     }
-    private fun laytenban() {
-        val intent = intent
-        val tenban: String? = intent.getStringExtra("TENBAN")
-        tv_ban_chonmon.text = tenban }
     private fun setonclickbtn() {
         btn_caphe.setOnClickListener(this)
         btn_nuocngot.setOnClickListener(this)
@@ -71,6 +72,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         btn_thuoc.setOnClickListener(this)
         btn_doan.setOnClickListener(this)
         btn_khac.setOnClickListener(this)
+        btn_thongbao.setOnClickListener(this)
     }
     override fun onClick(v: View?) {
         when(v?.id){
@@ -85,9 +87,27 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             btn_kem.id-> nhaydenvitri(93)
             btn_doan.id-> nhaydenvitri(96)
             btn_thuoc.id -> nhaydenvitri(100)
-            else -> nhaydenvitri(108)
+            btn_khac.id -> nhaydenvitri(108)
+            btn_thongbao.id-> thongbao()
         }
     }
+
+    private fun thongbao() {
+        val gson = Gson()
+        val data = gson.toJson(SPDaChonList)
+        val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
+        Log.e("ppppp",data)
+        val call = serviceGenerator.insertbill(tenban!!,data)
+        call.enqueue(object : Callback<MutableList<listmon>> {
+            override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>) {
+                Toast.makeText(this@SanPham, response.body()!!.toString(), Toast.LENGTH_SHORT).show()
+            }
+            override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
+                Log.e("ppppp",t.message.toString())
+            }
+        })
+    }
+
     private fun nhaydenvitri(index :Int) {
         (rev_chonmon.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(index,0)
     }
