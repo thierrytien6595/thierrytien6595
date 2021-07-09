@@ -3,17 +3,16 @@ $conn = mysqli_connect('localhost', 'root', '', 'thachcoffee') or die ('Lá»—i ká
 $query = "SELECT * FROM sanpham"; 
 $result = mysqli_query($conn, $query);
 class SanPham{
-	function SanPham($TENSP,$HINHSP,$GIASP,$MASP,$MALOAISP){
+	function SanPham($TENSP,$HINHSP,$GIASP,$MASP){
 		$this -> TENSP=$TENSP;
 		$this -> HINHSP=$HINHSP;
 		$this -> GIASP=$GIASP;
 		$this -> MASP=$MASP;
-		$this -> MALOAISP="R.drawable.whitecolor";
 	}
 }
 $SPArray = array();
 while($row = mysqli_fetch_assoc($result)){
-		array_push($SPArray, new SanPham($row['TENSP'],$row['HINHSP'],$row['GIASP'],$row['MASP'],$row['MALOAISP']));
+		array_push($SPArray, new SanPham($row['TENSP'],$row['HINHSP'],$row['GIASP'],$row['MASP']));
 	}
 echo json_encode($SPArray);
 ?>
