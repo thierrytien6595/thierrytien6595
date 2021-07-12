@@ -12,7 +12,6 @@ class SanPham{
 }
 $SPArray = array();
 while($row = mysqli_fetch_assoc($result)){
-		array_push($SPArray, new SanPham($row['TENSP'],$row['HINHSP'],$row['GIASP'],$row['MASP']));
-	}
+	array_push($SPArray, new SanPham($row['TENSP'],$row['HINHSP'],$row['GIASP'],$row['MASP']));	}
 echo json_encode($SPArray);
 ?>
