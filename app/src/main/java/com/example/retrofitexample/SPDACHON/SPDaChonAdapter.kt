@@ -37,7 +37,7 @@ class SPDaChonAdapter(private val mModel: MutableList<SPDaChonModel>,private val
             itemView.btn_chuthich.setOnClickListener(this)
         }
         override fun onClick(v: View?) {
-            val position = adapterPosition
+            val position =adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemDaChonClick(mModel[position])
             }

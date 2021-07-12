@@ -15,38 +15,50 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.android.synthetic.main.activity_main.view.*
 class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnClickListener {
+    var banList = mutableListOf<BanModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    val serviceGenerator = ServiceGenerator.buildService(ApiServiceBan::class.java)
-    val call = serviceGenerator.getPosts()
+        recycler_view.apply {
+            layoutManager = GridLayoutManager(this@MainActivity,3)
+            adapter = BanAdapter(banList, this@MainActivity)
+        }
+    laydanhsachban()
+    }
 
-    call.enqueue(object : Callback<MutableList<BanModel>> {
-        override fun onResponse(
-            call: Call<MutableList<BanModel>>,
-            response: Response<MutableList<BanModel>>
-        ) {
-            if (response.isSuccessful) {
-                recycler_view.apply {
-                    layoutManager = GridLayoutManager(this@MainActivity,3)
-                    adapter = BanAdapter(response.body()!!, this@MainActivity)
+    private fun laydanhsachban() {
+        val serviceGenerator = ServiceGenerator.buildService(ApiServiceBan::class.java)
+        val call = serviceGenerator.getSP()
+
+        call.enqueue(object : Callback<MutableList<BanModel>> {
+            override fun onResponse(
+                call: Call<MutableList<BanModel>>,
+                response: Response<MutableList<BanModel>>
+            ) {
+                if (response.isSuccessful) {
+                    banList.clear()
+                    banList.addAll(response.body()!!)
+                    Log.e("SANPHAM",response.body()!!.toString())
+                    recycler_view.adapter?.notifyDataSetChanged()
                 }
             }
-        }
 
-        override fun onFailure(call: Call<MutableList<BanModel>>, t: Throwable) {
-            t.printStackTrace()
-            Log.e("ppppp", t.message.toString())
-        }
-    })
+            override fun onFailure(call: Call<MutableList<BanModel>>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("MAIN2", t.message.toString())
+            }
+        })
     }
 
     override fun onItemClick(data: BanModel) {
         val intent : Intent = Intent(this, SanPham::class.java)
         intent.putExtra("TENBAN",data.TENBAN)
+        intent.putExtra("TRANGTHAIBAN",data.TRANGTHAI)
+        Log.e("SANPHAM.MAIN",data.TRANGTHAI.toString())
         startActivity(intent)
     }
 
     override fun onClick(v: View?) {
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.retrofitexample.BAN
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitexample.R
@@ -18,11 +19,14 @@ class BanAdapter(private val banList: MutableList<BanModel>, private val listene
     override fun onBindViewHolder(holder: BanViewHolder, position: Int) {
         val currentItem = banList[position]
         holder.tenBan.text = currentItem.TENBAN
+        if (currentItem.TRANGTHAI==1) holder.bancolor.setBackgroundResource(R.color.green)
+        else holder.bancolor.setBackgroundResource(R.color.purple_700)
     }
     override fun getItemCount() = banList.size
         inner class BanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
             val tenBan: TextView = itemView.tv_tenban
+            val bancolor:RelativeLayout = itemView.bancolor
         init {
             itemView.setOnClickListener(this)
         }

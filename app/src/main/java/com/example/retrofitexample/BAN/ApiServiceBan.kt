@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ApiServiceBan {
     @GET("ban.php")
-    fun getPosts() :Call<MutableList<BanModel>>
+    fun getSP() :Call<MutableList<BanModel>>
 }
