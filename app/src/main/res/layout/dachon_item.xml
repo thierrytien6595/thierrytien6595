@@ -13,13 +13,13 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:text="Tên Món"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
     <TextView
         android:id="@+id/tv_chuthich"
         android:text="chú thích"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="10sp"
         />
 </LinearLayout>
     <TextView
@@ -28,12 +28,14 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="0"
-        android:textSize="24dp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_chuthich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/chuthich"
         />
 </LinearLayout>

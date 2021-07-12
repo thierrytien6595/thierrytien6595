@@ -129,7 +129,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toTopOf="@+id/btn_chuthich"
             app:layout_constraintEnd_toEndOf="@+id/btn_thongbao"
             app:layout_constraintHeight_max="200dp"
             app:layout_constraintStart_toStartOf="parent"
