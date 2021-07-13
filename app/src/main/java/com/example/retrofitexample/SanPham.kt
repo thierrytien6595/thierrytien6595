@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitexample.BAN.ServiceGenerator
 import com.example.retrofitexample.SANPHAM.SPService
@@ -37,7 +36,6 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             adapter = SPDaChonAdapter(SPDaChonList,this@SanPham)
         }
         laydanhsachmon()
-//        laydanhsachmondachon(tenban!!)
     }
 
     private fun laydanhsachmondachon(tenban:String) {
@@ -49,15 +47,11 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
                 response: Response<MutableList<SPDaChonModel>>
             ) {
                 if (response.isSuccessful) {
-                    rev_chonmon2.apply {
                         SPDaChonList.clear()
                         SPDaChonList.addAll(response.body()!!)
-                        Log.e("SANPHAM1",response.body()!!.toString())
-                        adapter?.notifyDataSetChanged()
-                    }
+                        rev_chonmon2.adapter?.notifyDataSetChanged()
                 }
             }
-
             override fun onFailure(call: Call<MutableList<SPDaChonModel>>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("SANPHAM2", t.message.toString())
@@ -119,6 +113,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             btn_thongbao.id-> thongbao()
         }
     }
+
 
     private fun thongbao() {
         val gson = Gson()

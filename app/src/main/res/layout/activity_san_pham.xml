@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SANPHAM.SanPham">
+    tools:context=".SanPham">
     <LinearLayout
         android:id="@+id/menu_bar"
         android:layout_width="100dp"
@@ -14,80 +14,75 @@
         <Button
             android:id="@+id/btn_caphe"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:text="CÀ PHÊ"></Button>
 
         <Button
             android:id="@+id/btn_nuocngot"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="NƯỚC NGỌT"></Button>
 
         <Button
             android:id="@+id/btn_tra"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="TRÀ"></Button>
 
         <Button
             android:id="@+id/btn_sinhto"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="SINH TỐ"></Button>
 
         <Button
             android:id="@+id/btn_nuocep"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="NƯỚC ÉP"></Button>
 
         <Button
             android:id="@+id/btn_yogurt"
             android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:text="YOGURT"></Button>
 
         <Button
             android:id="@+id/btn_soda"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="SODA"></Button>
 
         <Button
             android:id="@+id/btn_daxay"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="ĐÁ XAY"></Button>
 
         <Button
             android:id="@+id/btn_kem"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="KEM"></Button>
 
         <Button
             android:id="@+id/btn_doan"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="ĐỒ ĂN"></Button>
 
         <Button
             android:id="@+id/btn_thuoc"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="THUỐC"></Button>
 
         <Button
             android:id="@+id/btn_khac"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:text="KHÁC"></Button>
-        <ImageView
-            android:id="@+id/imv_test"
-            android:layout_width="100dp"
-            android:layout_height="55dp"
-            android:text="KHÁC"></ImageView>
 
     </LinearLayout>
 
@@ -129,6 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/btn_thongbao"
             app:layout_constraintEnd_toEndOf="@+id/btn_thongbao"
             app:layout_constraintHeight_max="200dp"
             app:layout_constraintStart_toStartOf="parent"

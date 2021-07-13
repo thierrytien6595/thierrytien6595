@@ -51,11 +51,20 @@ class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnC
     }
 
     override fun onItemClick(data: BanModel) {
-        val intent : Intent = Intent(this, SanPham::class.java)
-        intent.putExtra("TENBAN",data.TENBAN)
-        intent.putExtra("TRANGTHAIBAN",data.TRANGTHAI)
-        Log.e("SANPHAM.MAIN",data.TRANGTHAI.toString())
-        startActivity(intent)
+        if (data.TRANGTHAI==1){
+            val intent : Intent = Intent(this, SanPhamDaChon::class.java)
+            intent.putExtra("TENBAN",data.TENBAN)
+            intent.putExtra("TRANGTHAIBAN",data.TRANGTHAI)
+            Log.e("SANPHAM.MAIN",data.TRANGTHAI.toString())
+            startActivity(intent)
+        }
+        else{
+            val intent : Intent = Intent(this, SanPham::class.java)
+            intent.putExtra("TENBAN",data.TENBAN)
+            intent.putExtra("TRANGTHAIBAN",data.TRANGTHAI)
+            Log.e("SANPHAM.MAIN",data.TRANGTHAI.toString())
+            startActivity(intent)
+        }
     }
 
     override fun onClick(v: View?) {

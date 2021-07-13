@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RetrofitExample"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SanPham"></activity>
+        <activity android:name=".SanPhamDaChon"></activity>
+        <activity android:name=".SanPham" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
