@@ -52,7 +52,7 @@ function Update_TRANGTHAI($tenban,$trangthai)
 		$sql = "UPDATE `ban`
 				SET TRANGTHAI = $trangthai
 				WHERE TENBAN='$tenban'";
-		if ($conn->query($sql) === TRUE) 
+		if ($conn->query($sql) == TRUE) 
 		{
 		} else 
 		{	
@@ -71,10 +71,17 @@ function Get_MAHD($maban)
 		
 	}
 
-function Add_chitietbanhang($MAHD,$MASP,$SOLUONG=1,$TRANGTHAIMON,$CHUTHICH){
+function Add_chitietbanhang($MAHD,$MASP,$SOLUONG=1,$TRANGTHAIMON=0,$CHUTHICH,$COROI=0){
 	include 'connect.php';
-	$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$MASP','$SOLUONG','$TRANGTHAIMON','$CHUTHICH')";
-	if ($conn->query($sql) === TRUE) 
+	if ($COROI==0) {
+		$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$MASP','$SOLUONG','$TRANGTHAIMON','$CHUTHICH')";
+		echo $sql. "<br>";
+	}else{
+		$sql = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$MASP AND TRANGTHAIMON=0";
+		echo $sql. "<br>";
+	}
+	
+	if ($conn->query($sql) == TRUE)
 		{
   			$conn->close();
 		} else 
@@ -89,7 +96,7 @@ function Add_hoadon($tenban)
 		$maban = Get_MABAN($tenban);
 		include 'connect.php';
 		$sql = "INSERT INTO `hoadon` (`MABAN`) VALUES ('$maban')";
-		if ($conn->query($sql) === TRUE) 
+		if ($conn->query($sql) == TRUE) 
 		{
 			
   			$kq= $conn->insert_id;

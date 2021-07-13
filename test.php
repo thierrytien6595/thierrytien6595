@@ -4,7 +4,7 @@ include 'myfunction.php';
 
 // MAIN
 
-$TENBAN  = $_POST['TENBAN'];
+$TENBAN  = $_GET['TENBAN']; echo $TENBAN."<br>";
 $TRANGTHAIBAN = Get_TRANGTHAIBAN($TENBAN);
 if ($TRANGTHAIBAN==0) { // NẾU BÀN CHƯA CÓ MÓN THÌ THÊM HÓA ĐƠN
 	$MAHD=Add_hoadon($TENBAN);
@@ -13,7 +13,7 @@ else{ // NẾU BÀN CÓ MÓN RỒI THÌ LẤY MÃ HÓA ĐƠN CŨ
 	$temp_MABAN = Get_MABAN($TENBAN);
 	$MAHD = Get_MAHD($temp_MABAN);
 }
-$jsondata = $_POST['jsondata'];
+$jsondata = $_GET['jsondata'];
 $myjson1 = json_decode($jsondata);
 
 include 'connect.php';
@@ -25,6 +25,7 @@ include 'connect.php';
 	$SOLUONG = $myjson1[$key]->SOLUONG;
 	include 'connect.php';
 	$sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=0";
+	echo $sql;
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
