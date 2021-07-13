@@ -23,7 +23,6 @@ import retrofit2.Response
 class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChonAdapter.OnItemClickListener,View.OnClickListener {
     val SPDaChonList = mutableListOf<SPDaChonModel>()
     var tenban: String? = null
-    var trangthaiban: Int =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             adapter = SPDaChonAdapter(SPDaChonList,this@SanPham)
         }
         laydanhsachmon()
-        laydanhsachmondachon(tenban!!)
+//        laydanhsachmondachon(tenban!!)
     }
 
     private fun laydanhsachmondachon(tenban:String) {
@@ -124,9 +123,9 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
     private fun thongbao() {
         val gson = Gson()
         val data = gson.toJson(SPDaChonList)
-        Log.e("SANPHAM6",data.toString())
+        Log.e("SANPHAM6",data.toString()+ tenban.toString())
         val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-        val call = serviceGenerator.insertbill(tenban!!, data)
+        val call = serviceGenerator.insertbill(tenban.toString(), data)
         //-------------------------//
         call.enqueue(object : Callback<MutableList<listmon>> {
             override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>){
