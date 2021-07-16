@@ -2,9 +2,12 @@ package com.example.retrofitexample.SPDACHON
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitexample.R
+import kotlinx.android.synthetic.main.activity_san_pham.*
+import kotlinx.android.synthetic.main.dachon_item.*
 import kotlinx.android.synthetic.main.dachon_item.view.*
 
 class SPDaChonAdapter(private val mModel: MutableList<SPDaChonModel>,private val listener: OnItemClickListener):
@@ -21,9 +24,11 @@ class SPDaChonAdapter(private val mModel: MutableList<SPDaChonModel>,private val
 
     override fun onBindViewHolder(holder: SPDaChonAdapter.PostViewHolder, position: Int) {
         val currentItem = mModel[position]
+
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvSOLUONG.text = currentItem.SOLUONG.toString()
         holder.tvCHUTHICH.text = currentItem.CHUTHICH
+
     }
         override fun getItemCount(): Int {
             return mModel.size
@@ -36,7 +41,7 @@ class SPDaChonAdapter(private val mModel: MutableList<SPDaChonModel>,private val
             val tvCHUTHICH: TextView = itemView.tv_chuthich
 
             init {
-                itemView.btn_chuthich?.setOnClickListener(this)
+                itemView.btn_chuthich.setOnClickListener(this)
             }
 
             override fun onClick(v: View?) {

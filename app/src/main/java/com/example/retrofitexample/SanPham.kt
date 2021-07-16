@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitexample.BAN.ServiceGenerator
 import com.example.retrofitexample.SANPHAM.SPService
@@ -15,6 +16,7 @@ import com.example.retrofitexample.SPDACHON.listmon
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_san_pham.*
+import kotlinx.android.synthetic.main.dachon_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +31,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         val intent = intent
         tenban = intent.getStringExtra("TENBAN")
         tv_ban_chonmon.text = tenban
-        btn_thongbao.visibility = View.GONE
+        group_spdc.visibility = View.GONE
         setonclickbtn()
         rev_chonmon2.apply {
             layoutManager = LinearLayoutManager(this@SanPham)
@@ -151,7 +153,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
         }
         if (SPDaChonList != emptyList<SPDaChonModel>()) {
-            btn_thongbao.visibility=View.VISIBLE
+            group_spdc.visibility=View.VISIBLE
             rev_chonmon2.adapter?.notifyDataSetChanged()
         }
         else {
@@ -170,7 +172,9 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
 
     override fun onItemDaChonClick(data: SPDaChonModel) {
         val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==data.TENSP})
-        SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG,"KHÔNG ĐƯỜNG"))
+        SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG,
+            edittext.text.toString()
+        ))
         rev_chonmon2.adapter?.notifyDataSetChanged()
     }
 }
