@@ -69,7 +69,7 @@ function Update_TRANGTHAI($tenban,$trangthai)
 function Get_MAHD($maban)
 	{
 		include 'connect.php';
-		$sql = "SELECT MAHD FROM `hoadon` WHERE MABAN='$maban'";
+		$sql = "SELECT MAHD FROM `hoadon` WHERE MABAN='$maban' ORDER BY MAHD DESC LIMIT 1;";
 		$result = $conn->query($sql); //echo $result;
 		$row = $result->fetch_assoc();
 		$conn->close();
