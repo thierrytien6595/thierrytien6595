@@ -13,6 +13,15 @@ interface SPService {
     fun getspdachon(@Query("TENBAN") tenban: String) :Call<MutableList<SPDaChonModel>>
 
     @FormUrlEncoded
+    @POST("xoamon.php")
+    fun xoamon(
+        @Field("TENBAN")
+        TENBAN:String,
+        @Field("jsondata")
+        jsondata:String
+    ) : Call<MutableList<listmon>>
+
+    @FormUrlEncoded
     @POST("add_bill.php")
     fun insertbill(
             @Field("TENBAN")
@@ -20,4 +29,6 @@ interface SPService {
             @Field("jsondata")
             jsondata:String
     ) : Call<MutableList<listmon>>
+
+
 }

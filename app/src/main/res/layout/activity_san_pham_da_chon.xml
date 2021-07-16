@@ -17,12 +17,65 @@
         android:text="TÊN BÀN LỖI"
         android:textSize="30dp"></TextView>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rev_chonmon"
+        android:id="@+id/rev_dachon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_tenban_spdc"
         android:layout_alignParentRight="true"
-        android:minHeight="400dp"
-        tools:listitem="@layout/mon_item"
+        android:minHeight="300dp"
+        tools:listitem="@layout/spdc_item"
         />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutxoamon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_xoa_spdc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/red"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rev_xoamon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/btn_thongbao"
+            app:layout_constraintEnd_toEndOf="@+id/btn_thongbao"
+            app:layout_constraintHeight_max="200dp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/spdc_item"/>
+
+        <Button
+            android:id="@+id/btn_thongbao_xoamon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THÔNG BÁO"
+            android:onClick="onClick"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@+id/rev_xoamon"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_them_spdc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THÊM MÓN"
+        android:textSize="24sp"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:id="@+id/btn_xoa_spdc"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="XÓA"
+        android:onClick="onClick"
+        android:textSize="24sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        />
+
+
 </RelativeLayout>

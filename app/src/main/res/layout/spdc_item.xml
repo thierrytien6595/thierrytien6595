@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+            android:id="@+id/tv_mon_dachon_spdc"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:text="Tên Món"
+            android:textSize="24sp" />
+    <TextView
+        android:id="@+id/tv_chuthich_spdc"
+        android:text="chú thích"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        />
+</LinearLayout>
+    <TextView
+        android:id="@+id/tv_soluong_dachon_spdc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="0"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/btn_giam"
+        android:layout_marginLeft="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/img_btn_tru"
+        />
+</LinearLayout>
