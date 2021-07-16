@@ -4,13 +4,12 @@ include 'myfunction.php';
 
 // MAIN
 
-$TENBAN  = $_GET['TENBAN'];
+$TENBAN  = $_POST['TENBAN'];
 $TRANGTHAIBAN = Get_TRANGTHAIBAN($TENBAN);
 $temp_MABAN = Get_MABAN($TENBAN);
 $MAHD = Get_MAHD($temp_MABAN);
-$jsondata = $_GET['jsondata'];
+$jsondata = $_POST['jsondata'];
 $myjson1 = json_decode($jsondata);
-$count = @count($myjson1);
 
 include 'connect.php';
 foreach ($myjson1 as $key => $value) {
@@ -21,14 +20,7 @@ $SOLUONG = $myjson1[$key]->SOLUONG;
 $TRANGTHAIMON = $myjson1[$key]->TRANGTHAIMON;
 include 'connect.php';
 $sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
-echo $sql.
 $result = $conn->query($sql);
-echo $result->num_rows;
-
-if (($result->num_rows) == ($count)) {
-	Update_TRANGTHAI($TENBAN,0);
-	Delete_HOADON($MAHD);
-	}
 if ($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
 	$CHUTHICH = $row['CHUTHICH'];
@@ -41,6 +33,7 @@ if ($result->num_rows > 0) {
 	$result = $conn->query($sql);
 	}
 }
+Update_TRANGTHAI($TENBAN,1);  // XÁC NHẬN BÀN CÓ MÓN
 responseApp($TENBAN,$jsondata);
 
 function responseApp($TENBAN,$jsondata){

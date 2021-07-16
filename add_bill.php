@@ -1,9 +1,7 @@
 <?php 
 // INCLUDE
 include 'myfunction.php';
-
 // MAIN
-
 $TENBAN  = $_POST['TENBAN'];
 $TRANGTHAIBAN = Get_TRANGTHAIBAN($TENBAN);
 if ($TRANGTHAIBAN==0) { // NẾU BÀN CHƯA CÓ MÓN THÌ THÊM HÓA ĐƠN

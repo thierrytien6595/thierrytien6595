@@ -7,7 +7,13 @@
 // 			function Add_hoadon($tenban)
 //			function Get_TRANGTHAIBAN($tenban)
 //			function Delete_chitietdonhang($MAHD)
-
+function Delete_HOADON($MAHD)
+	{
+		include 'connect.php';
+		$sql = "DELETE FROM `hoadon` WHERE `hoadon`.`MAHD`=$MAHD";
+		$result = $conn->query($sql); //echo $result;
+		$conn->close();
+	}
 function Delete_chitietdonhang($MAHD)
 	{
 		include 'connect.php';
@@ -95,7 +101,7 @@ function Add_hoadon($tenban)
 	{
 		$maban = Get_MABAN($tenban);
 		include 'connect.php';
-		$sql = "INSERT INTO `hoadon` (`MABAN`) VALUES ('$maban')";
+		$sql = "INSERT INTO `hoadon` (`MABAN`,`TIMEIN`) VALUES ('$maban',CURRENT_TIMESTAMP)";
 		if ($conn->query($sql) == TRUE) 
 		{
 			
