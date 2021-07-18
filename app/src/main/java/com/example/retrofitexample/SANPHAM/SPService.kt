@@ -9,6 +9,7 @@ interface SPService {
     @GET("sanpham.php")
     fun getSP() :Call<MutableList<SanPhamModel>>
 
+
     @GET("sanphamdachon.php?")
     fun getspdachon(@Query("TENBAN") tenban: String) :Call<MutableList<SPDaChonModel>>
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitexample.BAN.ServiceGenerator
 import com.example.retrofitexample.SANPHAM.SPService
@@ -176,5 +175,10 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
             edittext.text.toString()
         ))
         rev_chonmon2.adapter?.notifyDataSetChanged()
+    }
+    private fun sendGet(){
+
+        val url = "https://www.google.com"
+
     }
 }

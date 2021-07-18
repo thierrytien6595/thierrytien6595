@@ -4,8 +4,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.retrofitexample.BAN.ApiServiceBan
+import com.example.retrofitexample.BAN.BanAdapter
+import com.example.retrofitexample.BAN.BanModel
 import com.example.retrofitexample.BAN.ServiceGenerator
 import com.example.retrofitexample.SANPHAM.SPService
 import com.example.retrofitexample.SPDACHON.SPDaChonAdapter
@@ -13,17 +27,23 @@ import com.example.retrofitexample.SPDACHON.SPDaChonModel
 import com.example.retrofitexample.SPDACHON.listmon
 import com.example.retrofitexample.THEMXOASP.ThemXoaSPAdapter
 import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_san_pham.*
 import kotlinx.android.synthetic.main.activity_san_pham_da_chon.*
 import kotlinx.android.synthetic.main.spdc_item.*
+import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.reflect.Type
 
 class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
-    View.OnClickListener, ThemXoaSPAdapter.OnItemClickListener {
+    View.OnClickListener, ThemXoaSPAdapter.OnItemClickListener, BanAdapter.OnItemClickListener {
     val SPDaChonList = mutableListOf<SPDaChonModel>()
     val XoaMonList = mutableListOf<SPDaChonModel>()
+    var banList = mutableListOf<BanModel>()
     var tenban: String? = null
     var xoa:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,4 +177,94 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         val intent: Intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.chuyenban -> {
+                chuyenban()
+                true
+                }
+            R.id.tachdon-> {
+                tachdon()
+                true
+            }
+            R.id.ghepdon-> {
+                ghepdon()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun ghepdon(){
+
+    }
+
+    private fun tachdon(){
+    }
+
+    private fun chuyenban(){
+        laydanhsachban()
+    }
+
+    private fun laydanhsachban() {
+        val serviceGenerator = ServiceGenerator.buildService(ApiServiceBan::class.java)
+        val call = serviceGenerator.getSP()
+        call.enqueue(object : Callback<MutableList<BanModel>> {
+            override fun onResponse(
+                call: Call<MutableList<BanModel>>,
+                response: Response<MutableList<BanModel>>
+            ) {
+                if (response.isSuccessful) {
+                    rev_dachon.apply {
+                        layoutManager = GridLayoutManager(this@SanPhamDaChon,3)
+                        adapter = BanAdapter(response.body()!!, this@SanPhamDaChon)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MutableList<BanModel>>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("MAIN2", t.message.toString())
+            }
+        })
+    }
+
+
+    override fun onItemClick(data: BanModel) {
+        if (data.TRANGTHAI==0) {
+            val banchuyentoi = data.TENBAN
+            val url =
+                "http://192.168.1.5/thach/chuyenban.php?TENBAN=$tenban&banchuyentoi=$banchuyentoi"
+            sentGet(url)
+        }else{
+            val MABANgheptoi = data.MABAN
+            val url =
+                "http://192.168.1.5/thach/ghepban.php?TENBAN=$tenban&MABANgheptoi=$MABANgheptoi"
+            sentGet(url)
+        }
+    }
+
+    private fun sentGet(url: String) {
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            {
+                Log.e("SANPHAMSPDC","sent OK! $url")
+                chuyenvemain()},
+            {Log.e("SANPHAMSPDC","sent Fail! $url")})
+        queue.add(stringRequest)
+
+    }
+
+
 }
+
+
