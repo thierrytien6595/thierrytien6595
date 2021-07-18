@@ -25,6 +25,7 @@ import com.example.retrofitexample.SANPHAM.SPService
 import com.example.retrofitexample.SPDACHON.SPDaChonAdapter
 import com.example.retrofitexample.SPDACHON.SPDaChonModel
 import com.example.retrofitexample.SPDACHON.listmon
+import com.example.retrofitexample.THEMXOASP.TachDonAdapter
 import com.example.retrofitexample.THEMXOASP.ThemXoaSPAdapter
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -40,10 +41,12 @@ import retrofit2.Response
 import java.lang.reflect.Type
 
 class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
-    View.OnClickListener, ThemXoaSPAdapter.OnItemClickListener, BanAdapter.OnItemClickListener {
+    View.OnClickListener, ThemXoaSPAdapter.OnItemClickListener, BanAdapter.OnItemClickListener,
+    TachDonAdapter.OnItemClickListener {
     val SPDaChonList = mutableListOf<SPDaChonModel>()
     val XoaMonList = mutableListOf<SPDaChonModel>()
     var banList = mutableListOf<BanModel>()
+    var feature:String=""
     var tenban: String? = null
     var xoa:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,10 +85,16 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         })
     }
 
+
+    // TÁCH ĐƠN ADAPTER
     override fun onItemDaChonClick(data: SPDaChonModel) {
 
     }
 
+    override fun onBtnGiamClick(data: SPDaChonModel) {
+
+    }
+    // END TÁCH ĐƠN ADAPTER
     override fun onBtnGiamClick(data: SPDaChonModel,type:Int) {
         Log.e("SANPHAMSPDC","TENSP: "+data.TENSP+"   SOLUONG: "+data.SOLUONG)
         if(type==0) {
@@ -139,6 +148,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     }
 
     private fun xoamon() {
+        feature = "Xóa Món"
         xoa+=1
         xoa=xoa%2
         rev_dachon.apply {
@@ -158,20 +168,60 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     }
 
     private fun thongbao() {
-        val gson = Gson()
-        val data = gson.toJson(XoaMonList)
-        Log.e("SANPHAM6",data.toString()+ tenban.toString())
-        val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-        val call = serviceGenerator.xoamon(tenban.toString(), data)
-        //-------------------------//
-        call.enqueue(object : Callback<MutableList<listmon>> {
-            override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>){
-                chuyenvemain()
-            }
-            override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
-                Log.e("SANPHAM6",t.message.toString())
-            }
-        })
+
+        if (feature=="Tách Đơn"){
+            feature="Thanh Toán"
+            btn_thongbao_xoamon.text= "THANH TOÁN"
+            laydanhsachban()
+            return
+        }
+        if (feature=="Thanh Toán"){
+            Log.e("SANPHAM","Đang trong feature Thanh toán")
+            btn_thongbao_xoamon.text= "THÔNG BÁO"
+            val gson = Gson()
+            val data = gson.toJson(XoaMonList)
+            Log.e("SANPHAM6", data.toString() + tenban.toString())
+            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
+            val call = serviceGenerator.xoamon(tenban.toString(), data)
+            //-------------------------//
+            call.enqueue(object : Callback<MutableList<listmon>> {
+                override fun onResponse(
+                    call: Call<MutableList<listmon>>,
+                    response: Response<MutableList<listmon>>
+                ) {
+                    chuyenvemain()
+                }
+
+                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
+                    Log.e("SANPHAM6", t.message.toString())
+
+                }
+            })
+            return
+        }
+        if(feature=="Xóa Món")
+        {
+            val gson = Gson()
+            val data = gson.toJson(XoaMonList)
+            Log.e("SANPHAM6", data.toString() + tenban.toString())
+            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
+            val call = serviceGenerator.xoamon(tenban.toString(), data)
+            //-------------------------//
+            call.enqueue(object : Callback<MutableList<listmon>> {
+                override fun onResponse(
+                    call: Call<MutableList<listmon>>,
+                    response: Response<MutableList<listmon>>
+                ) {
+                    chuyenvemain()
+                }
+
+                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
+                    Log.e("SANPHAM6", t.message.toString())
+
+                }
+            })
+            return
+        }
     }
     private fun chuyenvemain() {
         val intent: Intent = Intent(this, MainActivity::class.java)
@@ -189,6 +239,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.chuyenban -> {
+                feature="Chuyển Bàn"
                 chuyenban()
                 true
                 }
@@ -196,19 +247,19 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 tachdon()
                 true
             }
-            R.id.ghepdon-> {
-                ghepdon()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    private fun ghepdon(){
-
-    }
-
     private fun tachdon(){
+        feature = "Tách Đơn"
+        btn_thongbao_xoamon.text = "TÁCH ĐƠN"
+        rev_dachon.apply {
+            adapter = ThemXoaSPAdapter(SPDaChonList,this@SanPhamDaChon,0,1)
+        }
+        rev_xoamon.apply {
+            layoutManager = LinearLayoutManager(this@SanPhamDaChon)
+            adapter = TachDonAdapter(XoaMonList,this@SanPhamDaChon)
+        }
     }
 
     private fun chuyenban(){
@@ -240,16 +291,38 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
 
 
     override fun onItemClick(data: BanModel) {
-        if (data.TRANGTHAI==0) {
-            val banchuyentoi = data.TENBAN
-            val url =
-                "http://192.168.1.5/thach/chuyenban.php?TENBAN=$tenban&banchuyentoi=$banchuyentoi"
-            sentGet(url)
-        }else{
-            val MABANgheptoi = data.MABAN
-            val url =
-                "http://192.168.1.5/thach/ghepban.php?TENBAN=$tenban&MABANgheptoi=$MABANgheptoi"
-            sentGet(url)
+        if (feature=="Chuyển Bàn") {
+            if (data.TRANGTHAI == 0) {
+                val banchuyentoi = data.TENBAN
+                val url =
+                    "http://192.168.1.5/thach/chuyenban.php?TENBAN=$tenban&banchuyentoi=$banchuyentoi"
+                sentGet(url)
+                return
+            }else{
+                val MABANgheptoi = data.MABAN
+                val url =
+                    "http://192.168.1.5/thach/ghepban.php?TENBAN=$tenban&MABANgheptoi=$MABANgheptoi"
+                sentGet(url)
+                return
+            }
+        }
+        if(feature=="Thanh Toán"){
+
+            val gson = Gson()
+            val data1 = gson.toJson(XoaMonList)
+            Log.e("SANPHAM6","Data: "+data1.toString()+"<br> và Tên Bàn: "+data.TENBAN)
+            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
+            val call = serviceGenerator.insertbill(data.TENBAN,data1)
+            //-------------------------//
+            call.enqueue(object : Callback<MutableList<listmon>> {
+                override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>){
+                    thongbao()
+                }
+                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
+                    Log.e("SANPHAM6",t.message.toString())
+                }
+            })
+            return
         }
     }
 

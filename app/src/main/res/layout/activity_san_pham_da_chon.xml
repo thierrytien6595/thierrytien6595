@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_tenban_spdc"
+        android:layout_above="@+id/layoutxoamon"
         android:layout_alignParentRight="true"
         android:minHeight="300dp"
         tools:listitem="@layout/spdc_item"
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toTopOf="@id/btn_thongbao"
+            app:layout_constraintBottom_toTopOf="@id/btn_thongbao_xoamon"
             app:layout_constraintHeight_max="200dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/spdc_item"/>

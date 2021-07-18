@@ -10,8 +10,4 @@
         android:id="@+id/tachdon"
         android:title="Tách đơn"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/ghepdon"
-        android:title="Ghép đơn"
-        app:showAsAction="never"/>
 </menu>

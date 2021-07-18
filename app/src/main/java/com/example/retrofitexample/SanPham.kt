@@ -176,9 +176,4 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         ))
         rev_chonmon2.adapter?.notifyDataSetChanged()
     }
-    private fun sendGet(){
-
-        val url = "https://www.google.com"
-
-    }
 }
