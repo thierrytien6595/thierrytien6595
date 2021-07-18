@@ -7,6 +7,23 @@
 // 			function Add_hoadon($tenban)
 //			function Get_TRANGTHAIBAN($tenban)
 //			function Delete_chitietdonhang($MAHD)
+//			function Update_HOADON($MAHD,$MAbanchuyentoi)
+//			function Delete_HOADON($MAHD)
+
+function Update_HOADON($MAHD,$MAbanchuyentoi)
+	{
+		include 'connect.php';
+		$sql = "UPDATE `hoadon`
+				SET MABAN = $MAbanchuyentoi
+				WHERE MAHD=$MAHD";
+		if ($conn->query($sql) == TRUE) 
+		{
+		} else 
+		{	
+  			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
 function Delete_HOADON($MAHD)
 	{
 		include 'connect.php';

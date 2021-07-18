@@ -15,10 +15,6 @@ $count = @count($myjson1);
 include 'connect.php';
 $sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD";
 $result = $conn->query($sql);
-$isempty=0;
-if (($result->num_rows) == ($count)) {
-	$isempty=1;
-	}
 foreach ($myjson1 as $key => $value) {
 $tensp = $myjson1[$key]->TENSP;
 $masp= Get_MASP($tensp);
@@ -33,17 +29,21 @@ if ($result->num_rows > 0) {
 	$CHUTHICH = $row['CHUTHICH'];
 	$SOLUONG = $row['SOLUONG']-$SOLUONG;
 	if($SOLUONG!=0){
-	$sql = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
+	$sql1 = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
 	}else{
-	$sql = "DELETE FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
+	$sql1 = "DELETE FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
 	}
-	$result = $conn->query($sql);
+	$result1 = $conn->query($sql1);
 	}
 	$conn->close();
 }
-if ($isempty==1) {
-	Update_TRANGTHAI($TENBAN,0);
+include 'connect.php';
+$sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD";
+$result = $conn->query($sql);
+
+if (($result->num_rows)==0) {
 	Delete_HOADON($MAHD);
+	Update_TRANGTHAI($TENBAN,0);
 }
 responseApp($TENBAN,$jsondata);
 
