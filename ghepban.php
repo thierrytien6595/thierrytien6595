@@ -40,4 +40,5 @@ echo $newsql."<br>";
 Delete_chitietdonhang($MAHDxoa);
 Delete_HOADON($MAHDxoa);
 Update_TRANGTHAI($TENBAN,0);
+TongTien($MAHD);
 ?>

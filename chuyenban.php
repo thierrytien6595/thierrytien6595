@@ -8,4 +8,5 @@ $MAHD = Get_MAHD($MABAN);
 Update_HOADON($MAHD,$MAbanchuyentoi);
 Update_TRANGTHAI($TENBAN,0);
 Update_TRANGTHAI($banchuyentoi,1);
+TongTien($MAHD);
 ?>

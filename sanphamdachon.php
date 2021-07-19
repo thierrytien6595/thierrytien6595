@@ -14,7 +14,7 @@ class SanPhamDaChon{
 }
 $SPArray = array();
 include 'connect.php';
-$sql = "SELECT chitietbanhang.SOLUONG,sanpham.TENSP,chitietbanhang.TRANGTHAIMON,chitietbanhang.CHUTHICH,chitietbanhang.MAHD FROM chitietbanhang INNER JOIN sanpham ON chitietbanhang.MASP = sanpham.MASP AND chitietbanhang.MAHD = $mahd";
+$sql = "SELECT chitietbanhang.SOLUONG,sanpham.TENSP,chitietbanhang.TRANGTHAIMON,chitietbanhang.CHUTHICH,chitietbanhang.MAHD FROM chitietbanhang INNER JOIN sanpham ON chitietbanhang.MASP = sanpham.MASP AND chitietbanhang.MAHD = $mahd AND chitietbanhang.TRANGTHAIMON!=2";
 
 $result = $conn->query($sql);
 

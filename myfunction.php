@@ -9,6 +9,25 @@
 //			function Delete_chitietdonhang($MAHD)
 //			function Update_HOADON($MAHD,$MAbanchuyentoi)
 //			function Delete_HOADON($MAHD)
+function TongTien($MAHD)
+	{
+		$tongtien=0;
+		include 'connect.php';
+		$sql = "SELECT sanpham.GIASP,chitietbanhang.SOLUONG FROM chitietbanhang INNER JOIN sanpham ON chitietbanhang.MAHD=$MAHD AND chitietbanhang.MASP=sanpham.MASP AND chitietbanhang.TRANGTHAIMON!=2";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc()) {
+				$tongtien+=$row['GIASP']*$row['SOLUONG'];
+			}
+		} else 
+		{	
+  			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;
+		}
+		$sql = "UPDATE `hoadon` SET TONGTIEN=$tongtien WHERE MAHD=$MAHD";
+		$result = $conn->query($sql);
+		$conn->close();
+	}
 
 function Update_HOADON($MAHD,$MAbanchuyentoi)
 	{
@@ -22,6 +41,7 @@ function Update_HOADON($MAHD,$MAbanchuyentoi)
 		{	
   			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;
 		}
+		$conn->close();
 	}
 
 function Delete_HOADON($MAHD)
@@ -77,6 +97,27 @@ function Update_TRANGTHAI($tenban,$trangthai)
 				WHERE TENBAN='$tenban'";
 		if ($conn->query($sql) == TRUE) 
 		{
+		} else 
+		{	
+  			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;
+		}
+	}
+function Update_TRANGTHAIBAN($tenban)
+	{
+		include 'connect.php';
+		$MABAN = Get_MABAN($tenban);
+		$sql = "SELECT * FROM `hoadon` WHERE MABAN=$MABAN ORDER BY MAHD DESC LIMIT 1";
+		$result = $conn->query($sql);
+		if ($conn->query($sql) == TRUE) 
+		{
+			if($result->num_rows > 0) {
+				$row = $result->fetch_assoc();
+				if($row['TONGTIEN']==0) {
+				Update_TRANGTHAI($tenban,0);
+				}
+			}else{
+				Update_TRANGTHAI($tenban,0);
+			}
 		} else 
 		{	
   			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;

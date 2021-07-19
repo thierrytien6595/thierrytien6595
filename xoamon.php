@@ -3,12 +3,11 @@
 include 'myfunction.php';
 
 // MAIN
-
-$TENBAN  = $_POST['TENBAN'];
+$TENBAN  = $_GET['TENBAN'];
 $TRANGTHAIBAN = Get_TRANGTHAIBAN($TENBAN);
 $temp_MABAN = Get_MABAN($TENBAN);
 $MAHD = Get_MAHD($temp_MABAN);
-$jsondata = $_POST['jsondata'];
+$jsondata = $_GET['jsondata'];
 $myjson1 = json_decode($jsondata);
 $count = @count($myjson1);
 
@@ -46,6 +45,7 @@ if (($result->num_rows)==0) {
 	Update_TRANGTHAI($TENBAN,0);
 }
 responseApp($TENBAN,$jsondata);
+TongTien($MAHD);
 
 function responseApp($TENBAN,$jsondata){
 			$myjson = json_decode($jsondata);
