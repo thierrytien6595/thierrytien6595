@@ -31,7 +31,7 @@
         android:id="@+id/layoutxoamon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_xoa_spdc"
+        android:layout_above="@+id/btn_thanhtoan"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@color/red"
@@ -67,10 +67,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
     <Button
-        android:id="@+id/btn_xoa_spdc"
+        android:id="@+id/btn_thanhtoan"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="XÓA"
+        android:text="THANH TOÁN"
         android:onClick="onClick"
         android:textSize="24sp"
         android:layout_alignParentBottom="true"

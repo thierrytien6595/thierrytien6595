@@ -19,6 +19,9 @@ class BanAdapter(private val banList: MutableList<BanModel>, private val listene
     override fun onBindViewHolder(holder: BanViewHolder, position: Int) {
         val currentItem = banList[position]
         holder.tenBan.text = currentItem.TENBAN
+        if(currentItem.TONGTIEN!=0) {
+            holder.tvtongtien.text = currentItem.TONGTIEN.toString()
+        }
         if (currentItem.TRANGTHAI==1) holder.bancolor.setBackgroundResource(R.color.green)
         else holder.bancolor.setBackgroundResource(R.color.purple_700)
     }
@@ -27,6 +30,7 @@ class BanAdapter(private val banList: MutableList<BanModel>, private val listene
         View.OnClickListener {
             val tenBan: TextView = itemView.tv_tenban
             val bancolor:RelativeLayout = itemView.bancolor
+            val tvtongtien:TextView = itemView.tv_tongtien
         init {
             itemView.setOnClickListener(this)
         }

@@ -73,6 +73,6 @@ class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnC
     override fun onResume() {
         super.onResume()
         recycler_view.adapter?.notifyDataSetChanged()
-        Log.e("SANPHAM","load lai ban")
+//        Log.e("SANPHAM","load lai ban")
     }
 }

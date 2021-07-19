@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.retrofitexample.BAN.ServiceGenerator
 import com.example.retrofitexample.SANPHAM.SPService
 import com.example.retrofitexample.SANPHAM.SanPhamAdapter
@@ -120,17 +123,15 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         val gson = Gson()
         val data = gson.toJson(SPDaChonList)
         Log.e("SANPHAM6",data.toString()+ tenban.toString())
-        val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-        val call = serviceGenerator.insertbill(tenban.toString(), data)
-        //-------------------------//
-        call.enqueue(object : Callback<MutableList<listmon>> {
-            override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>){
-                chuyenvemain()
-            }
-            override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
-                Log.e("SANPHAM6",t.message.toString())
-            }
-        })
+        val myurl = "http://192.168.1.5/thach/add_bill.php?TENBAN=$tenban&jsondata=$data"
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(
+            Request.Method.GET, myurl,
+            {
+                Log.e("SANPHAMSPDC","sent OK! $myurl")
+                chuyenvemain()},
+            {Log.e("SANPHAMSPDC","sent Fail! $myurl")})
+        queue.add(stringRequest)
 
     }
 

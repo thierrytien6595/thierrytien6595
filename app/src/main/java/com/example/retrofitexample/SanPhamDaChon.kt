@@ -98,6 +98,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     override fun onBtnGiamClick(data: SPDaChonModel,type:Int) {
         Log.e("SANPHAMSPDC","TENSP: "+data.TENSP+"   SOLUONG: "+data.SOLUONG)
         if(type==0) {
+            Log.e("SANPHAM:","type =0")
             val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
                 SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG - 1))
@@ -119,6 +120,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 layoutxoamon.visibility = View.GONE
             }
         }else{
+            Log.e("SANPHAM:","type =1")
             val index = XoaMonList.lastIndexOf(XoaMonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
                 XoaMonList.set(index, SPDaChonModel(data.TENSP, XoaMonList[index].SOLUONG - 1))
@@ -142,12 +144,18 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     override fun onClick(v: View?) {
         when(v?.id){
             btn_them_spdc.id->themmon()
-            btn_xoa_spdc.id->xoamon()
+            btn_thanhtoan.id->thanhtoan()
             btn_thongbao_xoamon.id->thongbao()
         }
     }
 
-    private fun xoamon() {
+    private fun thanhtoan() {
+        val myurl = "http://192.168.1.5/thach/thanhtoan.php?tenban=$tenban"
+        Log.e("SANPHAM",myurl)
+        sentGet(myurl)
+    }
+
+    private fun hienxoamon() {
         feature = "Xóa Món"
         xoa+=1
         xoa=xoa%2
@@ -176,50 +184,20 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             return
         }
         if (feature=="Thanh Toán"){
-            Log.e("SANPHAM","Đang trong feature Thanh toán")
-            btn_thongbao_xoamon.text= "THÔNG BÁO"
             val gson = Gson()
             val data = gson.toJson(XoaMonList)
-            Log.e("SANPHAM6", data.toString() + tenban.toString())
-            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-            val call = serviceGenerator.xoamon(tenban.toString(), data)
-            //-------------------------//
-            call.enqueue(object : Callback<MutableList<listmon>> {
-                override fun onResponse(
-                    call: Call<MutableList<listmon>>,
-                    response: Response<MutableList<listmon>>
-                ) {
-                    chuyenvemain()
-                }
-
-                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
-                    Log.e("SANPHAM6", t.message.toString())
-
-                }
-            })
+            Log.e("SANPHAM","Đang trong feature Thanh toán")
+            btn_thongbao_xoamon.text= "THÔNG BÁO"
+            val myurl = "http://192.168.1.5/thach/thanhtoan.php?tenban=$tenban&jsondata=$data"
+            sentGet(myurl)
             return
         }
         if(feature=="Xóa Món")
         {
             val gson = Gson()
             val data = gson.toJson(XoaMonList)
-            Log.e("SANPHAM6", data.toString() + tenban.toString())
-            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-            val call = serviceGenerator.xoamon(tenban.toString(), data)
-            //-------------------------//
-            call.enqueue(object : Callback<MutableList<listmon>> {
-                override fun onResponse(
-                    call: Call<MutableList<listmon>>,
-                    response: Response<MutableList<listmon>>
-                ) {
-                    chuyenvemain()
-                }
-
-                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
-                    Log.e("SANPHAM6", t.message.toString())
-
-                }
-            })
+            val myurl = "http://192.168.1.5/thach/xoamon.php?TENBAN=$tenban&jsondata=$data"
+            sentGet(myurl)
             return
         }
     }
@@ -247,6 +225,10 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 tachdon()
                 true
             }
+            R.id.xoamon-> {
+                hienxoamon()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -269,6 +251,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     private fun laydanhsachban() {
         val serviceGenerator = ServiceGenerator.buildService(ApiServiceBan::class.java)
         val call = serviceGenerator.getSP()
+        Log.e("SANPHAM","Lấy danh sách bàn trong laydanhsachban()")
         call.enqueue(object : Callback<MutableList<BanModel>> {
             override fun onResponse(
                 call: Call<MutableList<BanModel>>,
@@ -292,6 +275,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
 
     override fun onItemClick(data: BanModel) {
         if (feature=="Chuyển Bàn") {
+            Log.e("SANPHAM6","Đã chuyển từ bàn $tenban đến bàn ${data.TENBAN}")
             if (data.TRANGTHAI == 0) {
                 val banchuyentoi = data.TENBAN
                 val url =
@@ -307,21 +291,19 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             }
         }
         if(feature=="Thanh Toán"){
-
             val gson = Gson()
             val data1 = gson.toJson(XoaMonList)
             Log.e("SANPHAM6","Data: "+data1.toString()+"<br> và Tên Bàn: "+data.TENBAN)
-            val serviceGenerator = ServiceGenerator.buildService(SPService::class.java)
-            val call = serviceGenerator.insertbill(data.TENBAN,data1)
-            //-------------------------//
-            call.enqueue(object : Callback<MutableList<listmon>> {
-                override fun onResponse(call: Call<MutableList<listmon>>, response: Response<MutableList<listmon>>){
+            val tenbanchuyentoi = data.TENBAN
+            val url = "http://192.168.1.5/thach/add_bill.php?TENBAN=$tenbanchuyentoi&jsondata=$data1"
+            val queue = Volley.newRequestQueue(this)
+            val stringRequest = StringRequest(Request.Method.GET, url,
+                {   Log.e("SANPHAMSPDC","$url")
                     thongbao()
-                }
-                override fun onFailure(call: Call<MutableList<listmon>>, t: Throwable) {
-                    Log.e("SANPHAM6",t.message.toString())
-                }
-            })
+                },
+                {   Log.e("SANPHAMSPDC","$url")})
+            queue.add(stringRequest)
+            feature="Xóa Món"
             return
         }
     }
@@ -330,14 +312,11 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET, url,
             {
-                Log.e("SANPHAMSPDC","sent OK! $url")
+                Log.e("SANPHAMSPDC","$url")
                 chuyenvemain()},
-            {Log.e("SANPHAMSPDC","sent Fail! $url")})
+            {Log.e("SANPHAMSPDC","$url")})
         queue.add(stringRequest)
-
-    }
-
-
+        }
 }
 
 

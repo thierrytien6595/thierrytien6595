@@ -9,17 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00ff00"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:padding="2dp">
 
         <TextView
             android:id="@+id/tv_tenban"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
             android:text="Bàn 1"
             android:textColor="@android:color/white"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" ></TextView>
+        <TextView
+            android:text="20000"
+            android:textColor="@color/purple_700"
+            android:layout_below="@+id/tv_tenban"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tongtien"
+            android:textStyle="bold"
+            />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
