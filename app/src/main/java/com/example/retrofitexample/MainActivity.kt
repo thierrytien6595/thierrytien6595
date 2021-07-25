@@ -1,19 +1,20 @@
 package com.example.retrofitexample
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.retrofitexample.BAN.ApiServiceBan
 import com.example.retrofitexample.BAN.BanAdapter
 import com.example.retrofitexample.BAN.BanModel
 import com.example.retrofitexample.BAN.ServiceGenerator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlinx.android.synthetic.main.activity_main.view.*
+
 class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnClickListener {
     var banList = mutableListOf<BanModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +69,13 @@ class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnC
     }
 
     override fun onClick(v: View?) {
+        val textToPrint = "Your text here"
+        val intent = Intent("pe.diegoveloper.printing")
+        //intent.setAction(android.content.Intent.ACTION_SEND);
+        //intent.setAction(android.content.Intent.ACTION_SEND);
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, textToPrint)
+        startActivity(intent)
     }
 
     override fun onResume() {

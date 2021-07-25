@@ -194,11 +194,21 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         }
         if(feature=="Xóa Món")
         {
-            val gson = Gson()
-            val data = gson.toJson(XoaMonList)
-            val myurl = "http://192.168.1.5/thach/xoamon.php?TENBAN=$tenban&jsondata=$data"
-            sentGet(myurl)
-            return
+            if(edt_lydo.text.isEmpty()){
+                edt_lydo.hint = "CHƯA NHẬP LÝ DO KÌA MẤY ĐỨA"
+                Toast.makeText(this, "Nhập lý do hủy món cụ thể nha mấy em!", Toast.LENGTH_SHORT).show()
+            }else {
+                val gson = Gson()
+                val data = gson.toJson(XoaMonList)
+                val lydo = edt_lydo.text.trim()
+                val manv = 1
+                var myurl =
+                    "http://192.168.1.5/thach/lydohuymon.php?MANV=$manv&LYDO=$lydo&TENBAN=$tenban&DATA=$data"
+                sentURL(myurl)
+                myurl = "http://192.168.1.5/thach/xoamon.php?TENBAN=$tenban&jsondata=$data"
+                sentGet(myurl)
+                return
+            }
         }
     }
     private fun chuyenvemain() {
@@ -222,10 +232,12 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 true
                 }
             R.id.tachdon-> {
+                btn_thongbao_xoamon.text = "TÁCH ĐƠN"
                 tachdon()
                 true
             }
             R.id.xoamon-> {
+                btn_thongbao_xoamon.text="HỦY MÓN"
                 hienxoamon()
                 true
             }
@@ -234,7 +246,6 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     }
     private fun tachdon(){
         feature = "Tách Đơn"
-        btn_thongbao_xoamon.text = "TÁCH ĐƠN"
         rev_dachon.apply {
             adapter = ThemXoaSPAdapter(SPDaChonList,this@SanPhamDaChon,0,1)
         }
@@ -317,6 +328,15 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             {Log.e("SANPHAMSPDC","$url")})
         queue.add(stringRequest)
         }
+    private fun sentURL(url: String) {
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            {
+                Log.e("SANPHAMSPDC","$url")
+                },
+            {Log.e("SANPHAMSPDC","$url")})
+        queue.add(stringRequest)
+    }
 }
 
 

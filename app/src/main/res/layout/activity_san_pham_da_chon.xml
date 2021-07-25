@@ -36,7 +36,12 @@
         android:layout_alignParentRight="true"
         android:background="@color/red"
         >
-
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập lý do hủy món"
+            android:id="@+id/edt_lydo"
+            app:layout_constraintBottom_toTopOf="@id/rev_xoamon"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rev_xoamon"
             android:layout_width="match_parent"
@@ -68,9 +73,9 @@
         android:layout_alignParentRight="true"/>
     <Button
         android:id="@+id/btn_thanhtoan"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="THANH TOÁN"
+        android:text="TÍNH TIỀN"
         android:onClick="onClick"
         android:textSize="24sp"
         android:layout_alignParentBottom="true"

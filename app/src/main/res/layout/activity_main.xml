@@ -20,4 +20,11 @@
         android:clipToPadding="false"
         android:padding="4dp"
         tools:listitem="@layout/ban_item" />
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="40sp"-->
+<!--        android:text="Print"-->
+<!--        android:onClick="onClick"/>-->
+
 </RelativeLayout>
