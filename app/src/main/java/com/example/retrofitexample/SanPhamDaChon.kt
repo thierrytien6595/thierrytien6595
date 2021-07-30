@@ -194,7 +194,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
         }
         if(feature=="Xóa Món")
         {
-            if(edt_lydo.text.isEmpty()){
+            if(edt_lydo.text.isEmpty() && btn_thongbao_xoamon.text!="THANH TOÁN"){
                 edt_lydo.hint = "CHƯA NHẬP LÝ DO KÌA MẤY ĐỨA"
                 Toast.makeText(this, "Nhập lý do hủy món cụ thể nha mấy em!", Toast.LENGTH_SHORT).show()
             }else {
