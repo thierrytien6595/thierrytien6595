@@ -13,6 +13,7 @@
         android:background="@drawable/duongvien"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
+            android:id="@+id/tv_tongtien"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="165K"
@@ -31,6 +32,7 @@
             android:paddingBottom="10dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_sobanpv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="12 đơn đang phục vụ"
@@ -43,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
+                android:id="@+id/tv_somonpv"
                 android:text="+ 40 món đã phục vụ"
                 android:textSize="18sp"/>
             <TextView
@@ -51,6 +54,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
                 android:textStyle="bold"
+                android:id="@+id/tv_somoncpv"
                 android:text="+ 5 món chờ phục vụ"
                 android:textColor="#ff0000"
                 android:textSize="18sp"/>
@@ -64,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear1"
         app:layout_constraintEnd_toEndOf="parent">
         <TextView
+            android:id="@+id/tv_sobancpv"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_width="match_parent"
