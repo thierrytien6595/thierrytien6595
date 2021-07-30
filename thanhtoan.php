@@ -52,9 +52,11 @@ if(isset($_GET['tenban'])&&!isset($_GET['jsondata'])){
 	$TRANGTHAIBAN = Get_TRANGTHAIBAN($TENBAN);
 	$temp_MABAN = Get_MABAN($TENBAN);
 	$MAHD = Get_MAHD($temp_MABAN);
-	$sql1 = "UPDATE `chitietbanhang` SET TRANGTHAIMON=2 WHERE MAHD=$MAHD"; echo $sql1."<br>";
-	$result1 = $conn->query($sql1);
+	$sql1 = "UPDATE `chitietbanhang` SET TRANGTHAIMON=2 WHERE MAHD=$MAHD;"; echo $sql1."<br>";
+	$sql1.="UPDATE `hoadon` SET TIMEOUT=CURRENT_TIMESTAMP WHERE MAHD=$MAHD;";
+	$result1 = $conn->multi_query($sql1);
 	$conn->close();
+	TongTien($MAHD);
 	Update_TRANGTHAI($TENBAN,0);
 }
 

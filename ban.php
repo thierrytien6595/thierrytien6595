@@ -1,6 +1,6 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'thachcoffee') or die ('Lỗi kết nối');
-$query = "SELECT ban.MABAN,ban.TENBAN,ban.TRANGTHAI,hoadon.TONGTIEN FROM ban LEFT JOIN hoadon ON ban.MABAN=hoadon.MABAN AND hoadon.TONGTIEN!=0 ORDER BY ban.MABAN ASC"; 
+$query = "SELECT ban.MABAN,ban.TENBAN,ban.TRANGTHAI,hoadon.TONGTIEN FROM ban LEFT JOIN hoadon ON ban.MABAN=hoadon.MABAN AND hoadon.TONGTIEN!=0 AND hoadon.TIMEOUT='0000-00-00 00:00:00' ORDER BY ban.MABAN ASC"; 
 $result = mysqli_query($conn, $query);
 class SanPham{
 	function SanPham($MABAN,$TENBAN,$TRANGTHAI,$TONGTIEN){

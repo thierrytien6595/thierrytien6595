@@ -12,6 +12,23 @@
 function TongTien($MAHD)
 	{
 		$tongtien=0;
+		$dathanhtoan=0;
+		// Tính tiền các món đã thanh toán
+		include 'connect.php';
+		$sql = "SELECT sanpham.GIASP,chitietbanhang.SOLUONG FROM chitietbanhang INNER JOIN sanpham ON chitietbanhang.MAHD=$MAHD AND chitietbanhang.MASP=sanpham.MASP AND chitietbanhang.TRANGTHAIMON=2";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) 
+		{
+			while($row = $result->fetch_assoc()) {
+				$dathanhtoan+=$row['GIASP']*$row['SOLUONG'];
+			}
+		} else 
+		{	
+  			echo "Lỗi truy vấn: " . $sql . "<br>" . $conn->error;
+		}
+		$sql = "UPDATE `hoadon` SET DATHANHTOAN=$dathanhtoan WHERE MAHD=$MAHD";
+		$result = $conn->query($sql);
+		// Tổng tiền các món chưa thanh toán
 		include 'connect.php';
 		$sql = "SELECT sanpham.GIASP,chitietbanhang.SOLUONG FROM chitietbanhang INNER JOIN sanpham ON chitietbanhang.MAHD=$MAHD AND chitietbanhang.MASP=sanpham.MASP AND chitietbanhang.TRANGTHAIMON!=2";
 		$result = $conn->query($sql);
