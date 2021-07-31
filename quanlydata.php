@@ -18,7 +18,7 @@ $TONGTIEN = $row['TONGTIEN'];
 if ($TONGTIEN==null) {
 	$TONGTIEN="0";
   }
-$DTuoctinh=$DThomnay+$TONGTIEN;
+$DTUOCTINH=$DThomnay+$TONGTIEN;
 // Số lượng bàn đang phục vụ
 $query = "SELECT COUNT(MABAN) AS SOBAN_PV FROM ban WHERE TRANGTHAI=1"; 
 $result = mysqli_query($conn, $query);
@@ -55,7 +55,7 @@ class QUANLY{
 	// TONGTIEN là số tiền chưa thanh toán
 
 	function QUANLY($DTUOCTINH,$TONGTIEN,$SOBAN_PV,$SOMON_PV,$SOMON_CPV,$SOBAN_CPV,$DOANHTHU){
-		$this->DTUOCTINH=$DTUOCTINH;
+		$this -> DTUOCTINH=$DTUOCTINH;
 		$this -> TONGTIEN=$TONGTIEN;
 		$this -> SOBAN_PV=$SOBAN_PV;
 		$this -> SOMON_PV=$SOMON_PV;
