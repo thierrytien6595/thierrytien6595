@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         tv_somonpv.text = qllist[0].SOMONPV + " món đã phục vụ"
         tv_somoncpv.text = qllist[0].SOMONCPV + " món chờ phục vụ"
         tv_sobancpv.text = qllist[0].SOBANCPV + " BÀN CHƯA SỦ DỤNG"
-
+        tv_doanhthu.text = (qllist[0].DTUOCTINH.toInt()/1000).toString() + "K"
         vebieudo()
     }
 

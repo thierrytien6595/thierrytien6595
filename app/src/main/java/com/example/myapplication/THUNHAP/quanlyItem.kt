@@ -4,6 +4,8 @@ package com.example.myapplication.THUNHAP
 import com.google.gson.annotations.SerializedName
 
 data class quanlyItem(
+    @SerializedName("DTUOCTINH")
+    val DTUOCTINH: String,
     @SerializedName("DOANHTHU")
     val DOANHTHU: List<DOANHTHU>,
     @SerializedName("SOBAN_PV")

@@ -10,6 +10,6 @@ interface APIServiceHuymon {
     @GET("chitiethuymon.php")
     fun chitiethuymon() : Call<MutableList<chitietdataItem>>
 
-    @GET("test.php?")
+    @GET("quanlydata.php?")
     fun quanlydata(@Query("ID") ID:Int) : Call<MutableList<quanlyItem>>
 }
