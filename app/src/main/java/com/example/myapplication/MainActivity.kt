@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import com.example.myapplication.QUANLYHUYMON.APIService
 import com.example.myapplication.QUANLYHUYMON.ServiceGenerator
 import com.example.myapplication.QUANLYHUYMON.huymon
+import com.example.myapplication.QUANLYNHAPHANG.NHAPHANG
 import com.example.myapplication.THUNHAP.quanlyItem
 import com.example.myapplication.TONKHO.TONKHO
 import com.github.mikephil.charting.data.*
@@ -112,6 +113,11 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.tonkho -> {
                 val intent = Intent(this, TONKHO::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.chitietnhaphang -> {
+                val intent = Intent(this, NHAPHANG::class.java)
                 startActivity(intent)
                 return true
             }

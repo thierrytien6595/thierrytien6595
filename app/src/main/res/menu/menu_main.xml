@@ -8,6 +8,11 @@
         android:icon="@drawable/chitiethuymon"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/chitietnhaphang"
+        android:title="Nhập hàng"
+        android:icon="@drawable/ic_baseline_receipt_24"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/tonkho"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:title="Nhập"

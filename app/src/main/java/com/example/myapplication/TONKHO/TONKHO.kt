@@ -22,6 +22,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
 
     val SPNhapList = mutableListOf<SanPhamModel>()
     val SPList = mutableListOf<SanPhamModel>()
+    val NhapList = mutableListOf<SanPhamModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,9 +86,18 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
             btn_khac.id -> nhaydenvitri(108)
             btn_nhapkho.id -> {
                 rev_chonmon2.adapter?.notifyDataSetChanged()
+                for (i in 0 until SPNhapList.size){
+                    val index = NhapList.lastIndexOf(NhapList.findLast {it.MASP==SPNhapList[i].MASP})
+                    if (index==-1) // Nếu SP chọn chưa có trong list
+                    {
+                        NhapList.add(SanPhamModel(SPNhapList[i].TENSP, SPNhapList[i].HINHSP,SPNhapList[i].GIASP,SPNhapList[i].MASP,SPNhapList[i].SOLUONG))
+                    }
+                    else{// Nếu có rồi thì tăng số lượng lên
+                        NhapList.set(index, SanPhamModel(SPNhapList[i].TENSP, SPNhapList[i].HINHSP,SPNhapList[i].GIASP,SPNhapList[i].MASP,NhapList[index].SOLUONG+SPNhapList[i].SOLUONG))
+                    }
+                }
                 sentData(SPNhapList)
             }
-
         }
     }
 
@@ -139,7 +149,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
     private fun sentData(data: MutableList<SanPhamModel>){
         val gson = Gson()
         val data = gson.toJson(data)
-        val myurl = "http://192.168.1.5/thach/test.php?data=$data"
+        val myurl = "http://192.168.1.5/thach/nhaphang.php?data=$data"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,
@@ -149,5 +159,19 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
             {Log.e("NHAPSP","sent Fail! $myurl")})
         queue.add(stringRequest)
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("test","TONKHO onDestroy()")
+        val gson = Gson()
+        val data = gson.toJson(NhapList)
+        val myurl = "http://192.168.1.5/thach/nhaphang.php?data1=$data"
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(
+            Request.Method.GET, myurl,
+            {
+                Log.e("NHAPSP","sent OK! $myurl")
+            },
+            {Log.e("NHAPSP","sent Fail! $myurl")})
+        queue.add(stringRequest)
+    }
 }

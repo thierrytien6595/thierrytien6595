@@ -43,7 +43,6 @@ class huymon : AppCompatActivity() {
 
     private fun hienthi() {
         expandableListView.setAdapter(com.example.myapplication.QUANLYHUYMON.ExpandableListAdapter(this,chitiethuymonList))
-
     }
 
 }
