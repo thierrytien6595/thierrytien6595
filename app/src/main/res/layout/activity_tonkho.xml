@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TONKHO.TONKHO">
+  <LinearLayout
+      android:id="@+id/menu_bar"
+      android:layout_width="100dp"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_caphe"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="5dp"
+        android:onClick="onClick"
+        android:text="CÀ PHÊ"></Button>
+
+    <Button
+        android:id="@+id/btn_nuocngot"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:onClick="onClick"
+        android:text="NƯỚC NGỌT"></Button>
+
+    <Button
+        android:id="@+id/btn_tra"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="TRÀ"></Button>
+
+    <Button
+        android:id="@+id/btn_sinhto"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="SINH TỐ"></Button>
+
+    <Button
+        android:id="@+id/btn_nuocep"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:onClick="onClick"
+        android:text="NƯỚC ÉP"></Button>
+
+    <Button
+        android:id="@+id/btn_yogurt"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="YOGURT"></Button>
+
+    <Button
+        android:id="@+id/btn_soda"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="SODA"></Button>
+
+    <Button
+        android:id="@+id/btn_daxay"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="ĐÁ XAY"></Button>
+
+    <Button
+        android:id="@+id/btn_kem"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="KEM"></Button>
+
+    <Button
+        android:id="@+id/btn_doan"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="ĐỒ ĂN"></Button>
+
+    <Button
+        android:id="@+id/btn_thuoc"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="THUỐC"></Button>
+
+    <Button
+        android:id="@+id/btn_khac"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:text="KHÁC"></Button>
+
+  </LinearLayout>
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rev_chonmon"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentRight="true"
+      android:layout_toRightOf="@+id/menu_bar"
+      android:minHeight="400dp"
+      tools:listitem="@layout/mon_item"
+      />
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/group_nhapkho"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_toRightOf="@+id/menu_bar"
+      android:layout_alignParentRight="true"
+      android:background="@color/green"
+      >
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rev_chonmon2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toTopOf="@+id/btn_nhapkho"
+      app:layout_constrainedHeight="true"
+      app:layout_constraintHeight_max="200dp"
+      tools:listitem="@layout/them_item"/>
+  <Button
+      android:id="@+id/btn_nhapkho"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="NHẬP KHO"
+      android:onClick="onClick"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toBottomOf="parent" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

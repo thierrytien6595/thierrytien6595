@@ -4,14 +4,12 @@
     tools:context="com.example.myapplication.MainActivity">
     <item
         android:id="@+id/chitiethuymon"
-        android:title="Chi tiết hủy món"
-        app:showAsAction="never"/>
+        android:title="Hủy món"
+        android:icon="@drawable/chitiethuymon"
+        app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/tachdon"
-        android:title="Tách đơn"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/xoamon"
-        android:title="Xóa món"
-        app:showAsAction="never"/>
+        android:id="@+id/tonkho"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Nhập"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -8,10 +8,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import com.example.myapplication.QUANLYHUYMON.APIServiceHuymon
+import com.example.myapplication.QUANLYHUYMON.APIService
 import com.example.myapplication.QUANLYHUYMON.ServiceGenerator
 import com.example.myapplication.QUANLYHUYMON.huymon
 import com.example.myapplication.THUNHAP.quanlyItem
+import com.example.myapplication.TONKHO.TONKHO
 import com.github.mikephil.charting.data.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         Log.e("ID",ID.toString())
     }
     private fun getdata(ID:Int) {
-        val serviceGenerator = ServiceGenerator.buildService(APIServiceHuymon::class.java)
+        val serviceGenerator = ServiceGenerator.buildService(APIService::class.java)
         val call = serviceGenerator.quanlydata(ID)
 
         call.enqueue(object : Callback<MutableList<quanlyItem>> {
@@ -106,6 +107,11 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.chitiethuymon -> {
                 val intent = Intent(this, huymon::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.tonkho -> {
+                val intent = Intent(this, TONKHO::class.java)
                 startActivity(intent)
                 return true
             }

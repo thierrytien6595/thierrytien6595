@@ -3,7 +3,6 @@ package com.example.myapplication.QUANLYHUYMON
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ExpandableListAdapter
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.activity_huymon.*
 import retrofit2.Call
@@ -19,7 +18,7 @@ class huymon : AppCompatActivity() {
     }
 
     private fun laychitiethuymon() {
-        val serviceGenerator = ServiceGenerator.buildService(APIServiceHuymon::class.java)
+        val serviceGenerator = ServiceGenerator.buildService(APIService::class.java)
         val call = serviceGenerator.chitiethuymon()
 
         call.enqueue(object : Callback<MutableList<chitietdataItem>> {
