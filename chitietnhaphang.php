@@ -1,23 +1,21 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'thachcoffee') or die ('Lỗi kết nối');
-$query = "SELECT * FROM huymon ORDER BY ID DESC LIMIT 8";
+$query = "SELECT * FROM nhaphang ORDER BY ID DESC LIMIT 6";
 $result = mysqli_query($conn, $query);
 $chitietArray = array();
-$huymonArray = array();
-
+$nhaphangArray = array();
 while($row = mysqli_fetch_assoc($result)){
-	array_push($huymonArray, new HuyMon($row['ID'],$row['MANV'],$row['LYDO'],$row['TIME']));
+	array_push($nhaphangArray, new NhapHang($row['ID'],$row['MANV'],$row['TIME']));
 	}
-foreach ($huymonArray as $key => $value) {
-		$ID = $huymonArray[$key]->ID;
-		$MANV = $huymonArray[$key]->MANV;
+foreach($nhaphangArray as $key => $value) {
+		$ID = $nhaphangArray[$key]->ID;
+		$MANV = $nhaphangArray[$key]->MANV;
 		$query = "SELECT * FROM nhanvien WHERE MANV=$MANV";
 		$result = mysqli_query($conn, $query);
 		$row = $result->fetch_assoc();
 		$TENNV = $row['TENNV'];
-		$LYDO = $huymonArray[$key]->LYDO;
-		$TIME = $huymonArray[$key]->TIME;
-		$query = "SELECT * FROM chitiethuymon WHERE ID=$ID";
+		$TIME = $nhaphangArray[$key]->TIME;
+		$query = "SELECT * FROM chitietnhaphang WHERE ID=$ID";
 		$result = mysqli_query($conn, $query);
 		$SPArray = array();
 		$maSPArray = array();
@@ -25,6 +23,7 @@ foreach ($huymonArray as $key => $value) {
 		{
 			array_push($maSPArray,new maSP($row['MASP'],$row['SOLUONG']));
 		}
+		$TONGTIEN=0;
 		foreach ($maSPArray as $key => $value) {
 		$MASP = $maSPArray[$key]->MASP;
 		$SOLUONG = $maSPArray[$key]->SOLUONG;
@@ -32,23 +31,25 @@ foreach ($huymonArray as $key => $value) {
 		$result = mysqli_query($conn, $query);
 		$row = $result->fetch_assoc();
 		$TENSP = $row['TENSP'];
-		array_push($SPArray,new SP($TENSP,$SOLUONG));
+		$DONGIA = $row['GIASP'];
+		$TONGTIEN +=$SOLUONG*$DONGIA; 
+		array_push($SPArray,new SPNHAP($TENSP,$SOLUONG,$DONGIA));
 	}
-	array_push($chitietArray, new chitiet($ID,$TENNV,$LYDO,$TIME,$SPArray));
+	array_push($chitietArray, new chitiet($ID,$TENNV,$TIME,$TONGTIEN,$SPArray));
 }
 echo json_encode($chitietArray);
-class HuyMon{
-	function HuyMon($ID,$MANV,$LYDO,$TIME){
+class NhapHang{
+	function NhapHang($ID,$MANV,$TIME){
 		$this -> ID=$ID;
 		$this -> MANV=$MANV;
-		$this -> LYDO=$LYDO;
 		$this -> TIME=$TIME;
 	}
 }
-class SP{
-	function SP($TENSP,$SOLUONG){
+class SPNHAP{
+	function SPNHAP($TENSP,$SOLUONG,$DONGIA){
 		$this -> TENSP=$TENSP;
 		$this -> SOLUONG=$SOLUONG;
+		$this -> DONGIA=$DONGIA;
 	}
 }
 class maSP{
@@ -58,12 +59,12 @@ class maSP{
 	}
 }
 class chitiet{
-	function chitiet($ID,$TENNV,$LYDO,$TIME,$SP){
+	function chitiet($ID,$TENNV,$TIME,$TONGTIEN,$SPNHAP){
 		$this -> ID=$ID;
 		$this -> TENNV=$TENNV;
-		$this -> LYDO=$LYDO;
 		$this -> TIME=$TIME;
-		$this -> SP=$SP;
+		$this -> TONGTIEN=$TONGTIEN;
+		$this -> SPNHAP=$SPNHAP;
 	}
 }
 ?>
