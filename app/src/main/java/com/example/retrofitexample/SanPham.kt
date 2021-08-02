@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -147,17 +148,24 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==data.TENSP})
         if (index==-1) // Nếu SP chọn chưa có trong list
         {
-            SPDaChonList.add(SPDaChonModel(data.TENSP, 1))
+            if (data.SOLUONG.toInt()!=0) {
+                SPDaChonList.add(SPDaChonModel(data.TENSP, 1))
+            }else {Toast.makeText(this, "Hết rồi cần nhập thêm sản phầm", Toast.LENGTH_SHORT).show()}
         }
         else{// Nếu có rồi thì tăng số lượng lên
-            SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
+            if (SPDaChonList[index].SOLUONG==data.SOLUONG.toInt()){
+                Toast.makeText(this, "QUÁ SỐ LƯỢNG TRONG KHO", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
+            }
         }
         if (SPDaChonList != emptyList<SPDaChonModel>()) {
             group_spdc.visibility=View.VISIBLE
             rev_chonmon2.adapter?.notifyDataSetChanged()
         }
         else {
-            btn_thongbao.visibility = View.INVISIBLE
+            group_spdc.visibility = View.INVISIBLE
         }
     }
 

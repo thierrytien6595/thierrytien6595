@@ -21,6 +21,7 @@ class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val 
         val currentItem = mModel[position]
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvGIASP.text = currentItem.GIASP
+        holder.tvSOLUONG.text = currentItem.SOLUONG
         val base_image_url = "http://192.168.1.5/thach/image/"
         Picasso.get().load(base_image_url+currentItem.HINHSP+".jpg").into(holder.imvHINHSP)
         holder.btnGiam.setOnClickListener(){
@@ -37,6 +38,7 @@ class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val 
         val tvGIASP: TextView = itemView.tv_gia_mon
         val imvHINHSP: ImageView = itemView.imv_mon
         val btnGiam:Button = itemView.btn_giam
+        val tvSOLUONG:TextView = itemView.tv_soluong
         init {
             itemView.setOnClickListener(this)
         }
