@@ -28,12 +28,14 @@ include 'connect.php';
 		$row = $result->fetch_assoc();
 		$CHUTHICH = $CHUTHICH." ".$row['CHUTHICH'];
 		$SOLUONG = $SOLUONG + $row['SOLUONG'];
-		$sql = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=0";
-		$result = $conn->query($sql);
+		$sql = "UPDATE `chitietbanhang` SET SOLUONG=SOLUONG-$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=0;";
+		$sql.= "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$masp";
+		$result = $conn->multi_query($sql);
  		}
  		else{
- 		$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$masp','$SOLUONG',0,'$CHUTHICH')";
- 		$result = $conn->query($sql);
+ 		$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$masp','$SOLUONG',0,'$CHUTHICH');";
+ 		$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$SOLUONG WHERE MASP=$masp";
+		$result = $conn->multi_query($sql);
  		}
 	}
 Update_TRANGTHAI($TENBAN,1);  // XÁC NHẬN BÀN CÓ MÓN

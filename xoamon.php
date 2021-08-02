@@ -26,13 +26,16 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
 	$CHUTHICH = $row['CHUTHICH'];
+	$soluong=$SOLUONG;
 	$SOLUONG = $row['SOLUONG']-$SOLUONG;
 	if($SOLUONG!=0){
-	$sql1 = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
+	$sql1 = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON;";
+	$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
 	}else{
-	$sql1 = "DELETE FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
+	$sql1 = "DELETE FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON;";
+	$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
 	}
-	$result1 = $conn->query($sql1);
+	$result1 = $conn->multi_query($sql1);
 	}
 	$conn->close();
 }
