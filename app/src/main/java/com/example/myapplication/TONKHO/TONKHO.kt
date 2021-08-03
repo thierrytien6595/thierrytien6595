@@ -123,6 +123,14 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
         }
     }
 
+    override fun onClickTextView(data: SanPhamModel) {
+        val index = SPNhapList.lastIndexOf(SPNhapList.findLast {it.MASP==data.MASP})
+        if(index!=-1) {
+            SPNhapList.set(index, SanPhamModel(data.TENSP, data.HINHSP,data.GIASP,data.MASP, SPNhapList[index].SOLUONG + 10))
+            rev_chonmon2.adapter?.notifyDataSetChanged()
+        }
+    }
+
     override fun onClickAddBtn(data: SanPhamModel) {
         val index = SPNhapList.lastIndexOf(SPNhapList.findLast {it.MASP==data.MASP})
         if(index!=-1) {

@@ -3,14 +3,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.mon_item.view.*
-import kotlinx.android.synthetic.main.mon_item.view.tv_mon
-import kotlinx.android.synthetic.main.mon_item.view.tv_soluong
 import kotlinx.android.synthetic.main.them_item.view.*
 
 class ThemAdapter(private val mModel: MutableList<SanPhamModel>, private val listener: ThemAdapter.OnItemClickListener):
@@ -25,6 +21,10 @@ class ThemAdapter(private val mModel: MutableList<SanPhamModel>, private val lis
         val currentItem = mModel[position]
         holder.tvMon.text = currentItem.TENSP
         holder.tvSoluong.text = currentItem.SOLUONG.toString()
+        holder.tvSoluong.setOnClickListener(){
+            listener.onClickTextView(currentItem)
+        }
+
         holder.btnADD.setOnClickListener(){
             listener.onClickAddBtn(currentItem)
         }
@@ -44,6 +44,7 @@ class ThemAdapter(private val mModel: MutableList<SanPhamModel>, private val lis
         val btnREMOVE: Button = itemView.btn_remove
     }
     interface OnItemClickListener {
+        fun onClickTextView(data: SanPhamModel)
         fun onClickAddBtn(data: SanPhamModel)
         fun onClickRemoveBtn(data: SanPhamModel)
     }
