@@ -3,23 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.MainActivity">
     <item
-        android:id="@+id/nhanvien"
-        android:title="Nhân Viên"
-        android:icon="@drawable/nhanvien"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/chitiethuymon"
-        android:title="Hủy món"
+        android:id="@+id/xoanhanvien"
+        android:title="Xóa NV"
         android:icon="@drawable/chitiethuymon"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/chitietnhaphang"
-        android:title="Nhập hàng"
-        android:icon="@drawable/ic_baseline_receipt_24"
+        android:id="@+id/suanhanvien"
+        android:title="Sửa NV"
+        android:icon="@drawable/suanhanvien"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/tonkho"
+        android:id="@+id/themnhanvien"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
-        android:title="Nhập"
+        android:title="Thêm NV"
         app:showAsAction="always" />
 </menu>

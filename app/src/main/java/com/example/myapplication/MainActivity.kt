@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import com.example.myapplication.QUANLYHUYMON.APIService
 import com.example.myapplication.QUANLYHUYMON.ServiceGenerator
 import com.example.myapplication.QUANLYHUYMON.huymon
+import com.example.myapplication.QUANLYNHANVIEN.NHANVIEN
 import com.example.myapplication.QUANLYNHAPHANG.NHAPHANG
 import com.example.myapplication.THUNHAP.quanlyItem
 import com.example.myapplication.TONKHO.TONKHO
@@ -106,6 +107,11 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+            R.id.nhanvien -> {
+                val intent = Intent(this, NHANVIEN::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.chitiethuymon -> {
                 val intent = Intent(this, huymon::class.java)
                 startActivity(intent)
