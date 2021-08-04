@@ -106,6 +106,16 @@ function Get_MASP($tensp)
 		return $row['MASP'];
 		
 	}
+function Get_MANV($TENNV)
+	{
+		include 'connect.php';
+		$sql = "SELECT MANV FROM `nhanvien` WHERE TENNV='$TENNV'";
+		$result = $conn->query($sql); //echo $result;
+		$row = $result->fetch_assoc();
+		$conn->close();
+		return $row['MANV'];
+		
+	}
 function Update_TRANGTHAI($tenban,$trangthai)
 	{
 		include 'connect.php';
