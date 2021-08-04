@@ -48,9 +48,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
                 response: Response<MutableList<SanPhamModel>>
             ) {
                 if (response.isSuccessful) {
-                    rev_chonmon.apply {
                         updatedata(response.body())
-                    }
                 }
             }
 

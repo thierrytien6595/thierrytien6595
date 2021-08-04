@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/danhsach_tennv"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="TÊN NV"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:id="@+id/danhsach_sdt"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="SDT"
+        android:textSize="18sp"
+        android:inputType="phone"
+        android:layout_gravity="center"
+        android:textStyle="italic"
+        android:paddingLeft="24dp"/>
+    <Button
+        android:id="@+id/btn_suanv"
+        android:layout_marginLeft="20dp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/suanhanvien"
+        android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/btn_xoanv"
+        android:layout_marginLeft="10dp"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chitiethuymon"
+        android:layout_gravity="center"/>
+</LinearLayout>

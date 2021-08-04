@@ -11,19 +11,21 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.R
+import kotlinx.android.synthetic.main.danhsachnv.*
 import kotlinx.android.synthetic.main.fragment_them_n_v.*
 
 class NHANVIEN : AppCompatActivity() {
 
     private lateinit var themNVFragment: ThemNVFragment
-
+    private lateinit var danhsachNVFragment: DanhsachNVFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nhanvien)
 
         themNVFragment = ThemNVFragment()
-//        setFragment(themNVFragment)
+        danhsachNVFragment = DanhsachNVFragment()
+        setFragment(danhsachNVFragment)
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -38,11 +40,13 @@ class NHANVIEN : AppCompatActivity() {
                 val TENNV:String=tennhanvien.text.toString().trim()
                 val LUONG=luongnhanvien.text.toString().trim()
                 val SDT=sdt.text.toString().trim()
-                val myurl = "http://192.168.1.5/thach/nhanvien.php?TENNV=$TENNV&LUONG=$LUONG&SDT=$SDT"
+                val MANV = manv.text
+                val myurl = "http://192.168.1.5/thach/nhanvien.php?MANV=$MANV&TENNV=$TENNV&LUONG=$LUONG&SDT=$SDT"
                 val queue = Volley.newRequestQueue(this)
                 val stringRequest = StringRequest(
                     Request.Method.GET, myurl,
                     {
+                        setFragment(danhsachNVFragment)
                         Log.e("NHAPSP","sent OK! $myurl") },
                     {Log.e("NHAPSP","sent Fail! $myurl")})
                 queue.add(stringRequest)
@@ -59,20 +63,10 @@ class NHANVIEN : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-//            R.id.xoanhanvien -> {
-//                val intent = Intent(this, XoaNV::class.java)
-//                startActivity(intent)
-//                return true
-//            }
             R.id.themnhanvien -> {
                 setFragment(themNVFragment)
                 return true
             }
-//            R.id.suanhanvien -> {
-//                val intent = Intent(this, SuaNV::class.java)
-//                startActivity(intent)
-//                return true
-//            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -1,5 +1,6 @@
 package com.example.myapplication.QUANLYHUYMON
 
+import com.example.myapplication.QUANLYNHANVIEN.danhsachmodel
 import com.example.myapplication.QUANLYNHAPHANG.chitietdataItemNhap
 import com.example.myapplication.THUNHAP.quanlyItem
 import com.example.myapplication.TONKHO.SanPhamModel
@@ -23,5 +24,7 @@ interface APIService {
     @GET("sanpham.php?")
     fun editSP(@Query("MASP") MASP:String, @Query("EDIT") EDIT:Int) :Call<MutableList<SanPhamModel>>
 
+    @GET("danhsachnhanvien.php")
+    fun danhsachnhanvien() : Call<MutableList<danhsachmodel>>
 
 }
