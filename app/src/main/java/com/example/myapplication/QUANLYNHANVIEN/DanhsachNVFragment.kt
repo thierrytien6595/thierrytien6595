@@ -19,6 +19,7 @@ import com.example.myapplication.QUANLYHUYMON.APIService
 import com.example.myapplication.QUANLYHUYMON.ServiceGenerator
 import com.example.myapplication.R
 import com.example.myapplication.TONKHO.SanPhamModel
+import com.example.myapplication.variable.BIEN
 import kotlinx.android.synthetic.main.activity_tonkho.*
 import kotlinx.android.synthetic.main.fragment_danhsach_n_v.*
 import retrofit2.Call
@@ -112,7 +113,7 @@ class DanhsachNVFragment : Fragment(), DanhSachAdapter.OnItemClickListener {
     }
 
     private fun xoanhanvien(manv: Int) {
-        val myurl = "http://192.168.1.5/thach/nhanvien.php?MANV=$manv"
+        val myurl = BIEN().url()+"nhanvien.php?MANV=$manv"
         val queue = Volley.newRequestQueue(activity)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,

@@ -1,13 +1,15 @@
 package com.example.myapplication.QUANLYHUYMON
 
+import com.example.myapplication.variable.BIEN
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceGenerator {
+    val url = BIEN().url()
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.1.5/thach/")
+        .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

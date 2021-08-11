@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley
 import com.example.myapplication.QUANLYHUYMON.APIService
 import com.example.myapplication.QUANLYHUYMON.ServiceGenerator
 import com.example.myapplication.R
+import com.example.myapplication.variable.BIEN
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_tonkho.*
 import retrofit2.Call
@@ -154,7 +155,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
     private fun sentData(data: MutableList<SanPhamModel>){
         val gson = Gson()
         val data = gson.toJson(data)
-        val myurl = "http://192.168.1.5/thach/nhaphang.php?data=$data"
+        val myurl = BIEN().url()+"nhaphang.php?data=$data"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,
@@ -169,7 +170,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
         Log.e("test","TONKHO onDestroy()")
         val gson = Gson()
         val data = gson.toJson(NhapList)
-        val myurl = "http://192.168.1.5/thach/nhaphang.php?data1=$data"
+        val myurl = BIEN().url()+"nhaphang.php?data1=$data"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,

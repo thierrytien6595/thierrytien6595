@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.variable.BIEN
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.mon_item.view.*
 class SPAdapter(private val mModel: MutableList<SanPhamModel>, private val listener: SPAdapter.OnItemClickListener):
@@ -22,7 +23,7 @@ class SPAdapter(private val mModel: MutableList<SanPhamModel>, private val liste
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvGIASP.text = currentItem.GIASP
         holder.tvSOLUONG.text = currentItem.SOLUONG.toString()
-        val base_image_url = "http://192.168.1.5/thach/image/"
+        val base_image_url = BIEN().url()
         Picasso.get().load(base_image_url+currentItem.HINHSP+".jpg").into(holder.imvHINHSP)
     }
 

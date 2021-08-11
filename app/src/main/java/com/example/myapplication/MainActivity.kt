@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        gettv_tongtien()
         Log.e("ID",ID.toString())
         getdata(ID)
         var options = arrayOf("Theo giờ","Theo ngày","Theo Tuần","Theo Tháng")

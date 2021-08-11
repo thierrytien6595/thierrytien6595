@@ -5,17 +5,16 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.R
-import kotlinx.android.synthetic.main.danhsachnv.*
+import com.example.myapplication.variable.BIEN
 import kotlinx.android.synthetic.main.fragment_them_n_v.*
 
 class NHANVIEN : AppCompatActivity() {
-
+    val localhost = BIEN().url()
     private lateinit var themNVFragment: ThemNVFragment
     private lateinit var danhsachNVFragment: DanhsachNVFragment
 
@@ -41,7 +40,8 @@ class NHANVIEN : AppCompatActivity() {
                 val LUONG=luongnhanvien.text.toString().trim()
                 val SDT=sdt.text.toString().trim()
                 val MANV = manv.text
-                val myurl = "http://192.168.1.5/thach/nhanvien.php?MANV=$MANV&TENNV=$TENNV&LUONG=$LUONG&SDT=$SDT"
+
+                val myurl = localhost+"nhanvien.php?MANV=$MANV&TENNV=$TENNV&LUONG=$LUONG&SDT=$SDT"
                 val queue = Volley.newRequestQueue(this)
                 val stringRequest = StringRequest(
                     Request.Method.GET, myurl,
