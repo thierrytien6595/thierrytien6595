@@ -11,15 +11,15 @@
         android:id="@+id/chitiethuymon"
         android:title="Hủy món"
         android:icon="@drawable/chitiethuymon"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/chitietnhaphang"
         android:title="Nhập hàng"
         android:icon="@drawable/ic_baseline_receipt_24"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/tonkho"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:title="Nhập"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>

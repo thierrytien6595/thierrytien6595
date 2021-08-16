@@ -167,17 +167,19 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
     }
     override fun onDestroy() {
         super.onDestroy()
-        Log.e("test","TONKHO onDestroy()")
-        val gson = Gson()
-        val data = gson.toJson(NhapList)
-        val myurl = BIEN().url()+"nhaphang.php?data1=$data"
-        val queue = Volley.newRequestQueue(this)
-        val stringRequest = StringRequest(
-            Request.Method.GET, myurl,
-            {
-                Log.e("NHAPSP","sent OK! $myurl")
-            },
-            {Log.e("NHAPSP","sent Fail! $myurl")})
-        queue.add(stringRequest)
+        if (!NhapList.isEmpty()) {
+            Log.e("test", "TONKHO onDestroy()")
+            val gson = Gson()
+            val data = gson.toJson(NhapList)
+            val myurl = BIEN().url() + "nhaphang.php?data1=$data"
+            val queue = Volley.newRequestQueue(this)
+            val stringRequest = StringRequest(
+                Request.Method.GET, myurl,
+                {
+                    Log.e("NHAPSP", "sent OK! $myurl")
+                },
+                { Log.e("NHAPSP", "sent Fail! $myurl") })
+            queue.add(stringRequest)
+        }
     }
 }

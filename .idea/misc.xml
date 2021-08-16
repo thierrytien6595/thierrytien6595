@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/activity_nhanvien.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/activity_nhaphang.xml" value="0.1" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/fragment_danhsach_n_v.xml" value="0.18888888888888888" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/fragment_lich_n_v.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/fragment_lich_nhan_vien.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/lich_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/lichnhanvien.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/layout/lichnv_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/menu/menu_main.xml" value="0.18888888888888888" />
+        <entry key="..\:/Users/acer/Desktop/QUANLY/app/src/main/res/menu/menu_nhanvien.xml" value="0.18888888888888888" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

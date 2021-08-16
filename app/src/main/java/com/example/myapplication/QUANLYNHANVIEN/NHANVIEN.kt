@@ -11,20 +11,23 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.R
 import com.example.myapplication.variable.BIEN
+import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.android.synthetic.main.fragment_lich_n_v.*
 import kotlinx.android.synthetic.main.fragment_them_n_v.*
 
-class NHANVIEN : AppCompatActivity() {
+class NHANVIEN : AppCompatActivity(){
     val localhost = BIEN().url()
+
     private lateinit var themNVFragment: ThemNVFragment
     private lateinit var danhsachNVFragment: DanhsachNVFragment
-
+    private lateinit var lichNVFragment: LichNVFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nhanvien)
-
         themNVFragment = ThemNVFragment()
         danhsachNVFragment = DanhsachNVFragment()
-        setFragment(danhsachNVFragment)
+        lichNVFragment = LichNVFragment()
+        setFragment(lichNVFragment)
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -53,15 +56,13 @@ class NHANVIEN : AppCompatActivity() {
             }
         }
     }
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_nhanvien, menu)
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.themnhanvien -> {
                 setFragment(themNVFragment)
