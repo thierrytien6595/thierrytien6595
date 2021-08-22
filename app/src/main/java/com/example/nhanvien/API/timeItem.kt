@@ -11,5 +11,9 @@ data class timeItem(
     @SerializedName("TIMEIN")
     val TIMEIN: String,
     @SerializedName("TIMEOUT")
-    val TIMEOUT: String
+    val TIMEOUT: String,
+    @SerializedName("WORKTIME")
+    val WORKTIME: String,
+    @SerializedName("DIEMTRU")
+    val DIEMTRU: String
 )

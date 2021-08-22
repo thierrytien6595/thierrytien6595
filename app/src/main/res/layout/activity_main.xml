@@ -5,18 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tv_nhanvien"
-        android:text="TIẾN"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:padding="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_marginLeft="10dp">
+        <AutoCompleteTextView
+            android:id="@+id/autoCompletenhanvien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CHỌN"
+            android:inputType="none"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +41,7 @@
             android:textSize="24sp"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/tv_tonggiolam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="300"

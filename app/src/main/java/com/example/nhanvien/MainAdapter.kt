@@ -21,6 +21,8 @@ class MainAdapter(private val mModel: MutableList<timeItem>, private val listene
         holder.tvTIMEOUT.text = currentItem.TIMEOUT
         holder.tv_THU.text = currentItem.THU
         holder.tv_NGAY.text = currentItem.NGAY
+        holder.tv_WORKTIME.text = currentItem.WORKTIME
+        holder.tv_DIEMTRU.text = currentItem.DIEMTRU
     }
     override fun getItemCount(): Int {
         return mModel.size
@@ -31,6 +33,8 @@ class MainAdapter(private val mModel: MutableList<timeItem>, private val listene
         val tvTIMEOUT: TextView = itemView.tv_timeout
         val tv_THU:TextView = itemView.tv_thu
         val tv_NGAY:TextView = itemView.tv_ngay
+        val tv_WORKTIME:TextView = itemView.tv_giolam
+        val tv_DIEMTRU:TextView = itemView.tv_diemtru
     }
     interface OnItemClickListener {
         fun onItemClick(data: timeItem)
