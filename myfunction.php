@@ -9,6 +9,8 @@
 //			function Delete_chitietdonhang($MAHD)
 //			function Update_HOADON($MAHD,$MAbanchuyentoi)
 //			function Delete_HOADON($MAHD)
+//			function TongTien($MAHD)
+
 function TongTien($MAHD)
 	{
 		$tongtien=0;
@@ -114,7 +116,15 @@ function Get_MANV($TENNV)
 		$row = $result->fetch_assoc();
 		$conn->close();
 		return $row['MANV'];
-		
+	}
+function Get_TENNV($MANV)
+	{
+		include 'connect.php';
+		$sql = "SELECT TENNV FROM `nhanvien` WHERE MANV='$MANV'";
+		$result = $conn->query($sql); //echo $result;
+		$row = $result->fetch_assoc();
+		$conn->close();
+		return $row['TENNV'];
 	}
 function Update_TRANGTHAI($tenban,$trangthai)
 	{

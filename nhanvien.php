@@ -2,7 +2,7 @@
 include 'myfunction.php';
 if (isset($_GET['TENNV'])&&isset($_GET['LUONG'])&&isset($_GET['SDT'])){
 	$TENNV  = $_GET['TENNV'];
-	$MANV = Get_MANV($TENNV);
+	$MANV = $_GET['MANV'];
 	$LUONG  = $_GET['LUONG'];
 	$SDT 	= $_GET['SDT'];
 	if ($MANV==null) {

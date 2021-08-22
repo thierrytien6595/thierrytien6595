@@ -1,15 +1,17 @@
 <?php
 include 'connect.php';
-$MANV=$_GET['manv'];
-if (isset($_GET['feature'])&&isset($_GET['manv'])) {
-	$MANV=$_GET['manv'];
+include 'myfunction.php';
+
+$TENNV = $_GET['tennv'];
+$MANV=Get_MANV($TENNV);
+if (isset($_GET['feature'])&&isset($_GET['tennv'])) {
 	if ($_GET['feature']=="vao") {
 		$sql = "SELECT NGAY,TIMEOUT FROM `chamcong` WHERE MANV=$MANV ORDER BY ID DESC LIMIT 1";
 		$result = $conn->query($sql);
 		if ($result->num_rows>0) {
 			$row = $result->fetch_assoc();
 			$PREDATE=$row['NGAY'];
-			$DATE = date('Y-m-d');
+			$DATE = date('d-m-Y');
 			$TIMEOUT = $row['TIMEOUT'];
 			if ($TIMEOUT=="00:00:00") {
 			 	echo "NULL<BR>";
@@ -17,7 +19,7 @@ if (isset($_GET['feature'])&&isset($_GET['manv'])) {
 			 } 
 		}
 		$THU = date('D');
-		$sql = "INSERT INTO `chamcong` (`MANV`,`THU`,`NGAY`,`TIMEIN`) VALUES ($MANV,'$THU',CURRENT_DATE,CURRENT_TIME);";echo $sql;
+		$sql = "INSERT INTO `chamcong` (`MANV`,`THU`,`NGAY`,`TIMEIN`) VALUES ($MANV,'$THU',CURRENT_DATE,CURRENT_TIME);";
 		$result = $conn->query($sql);
 	}
 	elseif ($_GET['feature']=="ra") {
