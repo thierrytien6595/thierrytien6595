@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lịch nhân viên"
+            android:text="Lịch Sử Làm Việc"
             android:gravity="center"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:text="Chọn Nhân Viên :"
+                android:text="Nhân Viên :"
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:layout_marginLeft="20dp"
@@ -50,20 +50,31 @@
         </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/chondate"
+            android:onClick="onbtnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="Từ Ngày :"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:textSize="24sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="  From  "
+                android:gravity="center"
+                android:textSize="20sp"/>
             <EditText
                 android:id="@+id/startDate"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="  To  "
+                android:gravity="center"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/endDate"
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="2"
@@ -74,29 +85,62 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="Đến Ngày :"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:textSize="24sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="  From  "
+                android:gravity="center"
+                android:textSize="20sp"/>
             <EditText
-                android:id="@+id/endDate"
+                android:id="@+id/startTime"
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="  To  "
+                android:gravity="center"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/endTime"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_xem"
+                android:text="XEM"
+                android:textSize="18sp"/>
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_xem"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="XEM"
-            android:onClick="onbtnClick"
-            android:layout_gravity="center"/>
+            android:id="@+id/layout_trudiem"
+            android:visibility="gone">
+            <EditText
+                android:id="@+id/edt_diemtru"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(điểm)"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/btn_xacnhan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="XÁC NHẬN"/>
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rev_lichsunhanvien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/lich_item"/>

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.MainActivity">
     <item
-        android:id="@+id/suanhanvien"
-        android:title="Sửa NV"
-        android:icon="@drawable/suanhanvien"
+        android:id="@+id/trudiem"
+        android:title="TRỪ ĐIỂM"
         app:showAsAction="always"/>
     <item
         android:id="@+id/themnhanvien"

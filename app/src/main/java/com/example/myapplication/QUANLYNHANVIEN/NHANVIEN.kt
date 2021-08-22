@@ -11,13 +11,11 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.myapplication.R
 import com.example.myapplication.variable.BIEN
-import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.fragment_lich_n_v.*
 import kotlinx.android.synthetic.main.fragment_them_n_v.*
 
 class NHANVIEN : AppCompatActivity(){
     val localhost = BIEN().url()
-
     private lateinit var themNVFragment: ThemNVFragment
     private lateinit var danhsachNVFragment: DanhsachNVFragment
     private lateinit var lichNVFragment: LichNVFragment
@@ -57,7 +55,6 @@ class NHANVIEN : AppCompatActivity(){
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_nhanvien, menu)
         return true
@@ -68,7 +65,12 @@ class NHANVIEN : AppCompatActivity(){
                 setFragment(themNVFragment)
                 return true
             }
+            R.id.trudiem -> {
+                lichNVFragment.layout_trudiem.visibility = View.VISIBLE
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.myapplication.QUANLYHUYMON
 
 import com.example.myapplication.QUANLYNHANVIEN.danhsachmodel
+import com.example.myapplication.QUANLYNHANVIEN.lichsunhanvienitem
 import com.example.myapplication.QUANLYNHAPHANG.chitietdataItemNhap
 import com.example.myapplication.THUNHAP.quanlyItem
 import com.example.myapplication.TONKHO.SanPhamModel
@@ -27,4 +28,13 @@ interface APIService {
     @GET("danhsachnhanvien.php")
     fun danhsachnhanvien() : Call<MutableList<danhsachmodel>>
 
+    @GET("lichsunhanvien.php?")
+    fun lichsunhanvien( @Query("TENNV") TENNV:String,
+                        @Query("startDate") startDate:String?="",
+                        @Query("endDate") endDate:String?="",
+                        @Query("startTime") startTime:String?="",
+                        @Query("endTime") endTime:String?="",
+                        @Query("diemtru") diemtru:Int?=0,
+                        @Query("data") data:String?=""
+    ):Call<MutableList<lichsunhanvienitem>>
 }
