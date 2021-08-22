@@ -39,6 +39,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     View.OnClickListener, ThemXoaSPAdapter.OnItemClickListener, BanAdapter.OnItemClickListener,
@@ -101,7 +103,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             Log.e("SANPHAM:","type =0")
             val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
-                SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG - 1))
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG - 1,"",0,data.DONGIA))
                 if (SPDaChonList[index].SOLUONG == 0) SPDaChonList.removeAt(index)
                 rev_dachon.adapter?.notifyDataSetChanged()
             }
@@ -109,9 +111,9 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val index1 = XoaMonList.lastIndexOf(XoaMonList.findLast { it.TENSP == data.TENSP })
             if (index1 == -1) // Nếu SP chọn chưa có trong list
             {
-                XoaMonList.add(SPDaChonModel(data.TENSP, 1))
+                XoaMonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA))
             } else {// Nếu có rồi thì tăng số lượng lên
-                XoaMonList.set(index1, SPDaChonModel(data.TENSP, XoaMonList[index1].SOLUONG + 1))
+                XoaMonList.set(index1, SPDaChonModel(data.TENSP, XoaMonList[index1].SOLUONG + 1,"",0,data.DONGIA))
             }
             if (XoaMonList != emptyList<SPDaChonModel>()) {
                 layoutxoamon.visibility = View.VISIBLE
@@ -123,7 +125,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             Log.e("SANPHAM:","type =1")
             val index = XoaMonList.lastIndexOf(XoaMonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
-                XoaMonList.set(index, SPDaChonModel(data.TENSP, XoaMonList[index].SOLUONG - 1))
+                XoaMonList.set(index, SPDaChonModel(data.TENSP, XoaMonList[index].SOLUONG - 1,"",0,data.DONGIA))
                 if (XoaMonList[index].SOLUONG == 0) XoaMonList.removeAt(index)
                 rev_xoamon.adapter?.notifyDataSetChanged()
             }
@@ -131,9 +133,9 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val index1 = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
             if (index1 == -1) // Nếu SP chọn chưa có trong list
             {
-                SPDaChonList.add(SPDaChonModel(data.TENSP, 1))
+                SPDaChonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA))
             } else {// Nếu có rồi thì tăng số lượng lên
-                SPDaChonList.set(index1, SPDaChonModel(data.TENSP, SPDaChonList[index1].SOLUONG + 1))
+                SPDaChonList.set(index1, SPDaChonModel(data.TENSP, SPDaChonList[index1].SOLUONG + 1,"",0,data.DONGIA))
             }
             if (SPDaChonList != emptyList<SPDaChonModel>()) {
                 rev_dachon.adapter?.notifyDataSetChanged()
@@ -150,10 +152,41 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
     }
 
     private fun thanhtoan() {
-        val myurl = "http://192.168.1.5/thach/thanhtoan.php?tenban=$tenban"
+        val myurl = bien().localhost+"thanhtoan.php?tenban=$tenban"
         Log.e("SANPHAM",myurl)
+        Print(SPDaChonList)
         sentGet(myurl)
     }
+
+    private fun Print(List: MutableList<SPDaChonModel>) {
+        val formatter = SimpleDateFormat("HH:mm dd/MM/yyyy")
+        var date: Date = Calendar.getInstance().time
+        val now = formatter.format(date)
+        val TITLE = "<CENTER><BIG>THACH COFFEE<BR><BR>"
+        val TenBan = tenban?.let { bien().convert(it) }
+        val datetime = "<CENTER>$now     <MEDIUM1><BOLD>$TenBan<BR><CENTER><LINE>"
+        var list = "<LEFT>MON      ;;SL  DON GIA   TIEN<BR><CENTER><LINE>"
+        var tongtien = 0
+        for (i in 0 until List.size){
+            val tensp = List[i].TENSP
+            val soluong = List[i].SOLUONG.toString()
+            val dongia = (List[i].DONGIA.toInt()/1000).toString()
+            val tinhtien = (soluong.toInt()*dongia.toInt()).toString()
+            tongtien += tinhtien.toInt()
+            list+= "<LEFT>$tensp;;$soluong     $dongia"+"K      $tinhtien"+"K<BR>"
+        }
+
+
+        list+= "<CENTER><DLINE><BR><CENTER><MEDIUM1>TONG TIEN       $tongtien"+"K<BR><CENTER><DLINE><CUT>"
+        var text = TITLE+datetime+list
+        text = bien().convert(text)
+        Log.e("test",text)
+        val intent = Intent("pe.diegoveloper.printing")
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(intent)
+    }
+
 
     private fun hienxoamon() {
         feature = "Xóa Món"
@@ -188,7 +221,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val data = gson.toJson(XoaMonList)
             Log.e("SANPHAM","Đang trong feature Thanh toán")
             btn_thongbao_xoamon.text= "THÔNG BÁO"
-            val myurl = "http://192.168.1.5/thach/thanhtoan.php?tenban=$tenban&jsondata=$data"
+            val myurl = bien().localhost+"thanhtoan.php?tenban=$tenban&jsondata=$data"
             sentGet(myurl)
             return
         }
@@ -202,10 +235,9 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 val data = gson.toJson(XoaMonList)
                 val lydo = edt_lydo.text.trim()
                 val manv = 1
-                var myurl =
-                    "http://192.168.1.5/thach/lydohuymon.php?MANV=$manv&LYDO=$lydo&TENBAN=$tenban&DATA=$data"
+                var myurl = bien().localhost+"lydohuymon.php?MANV=$manv&LYDO=$lydo&TENBAN=$tenban&DATA=$data"
                 sentURL(myurl)
-                myurl = "http://192.168.1.5/thach/xoamon.php?TENBAN=$tenban&jsondata=$data"
+                myurl = bien().localhost+"xoamon.php?TENBAN=$tenban&jsondata=$data"
                 sentGet(myurl)
                 return
             }
@@ -289,14 +321,12 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             Log.e("SANPHAM6","Đã chuyển từ bàn $tenban đến bàn ${data.TENBAN}")
             if (data.TRANGTHAI == 0) {
                 val banchuyentoi = data.TENBAN
-                val url =
-                    "http://192.168.1.5/thach/chuyenban.php?TENBAN=$tenban&banchuyentoi=$banchuyentoi"
+                val url = bien().localhost+"chuyenban.php?TENBAN=$tenban&banchuyentoi=$banchuyentoi"
                 sentGet(url)
                 return
             }else{
                 val MABANgheptoi = data.MABAN
-                val url =
-                    "http://192.168.1.5/thach/ghepban.php?TENBAN=$tenban&MABANgheptoi=$MABANgheptoi"
+                val url = bien().localhost+"ghepban.php?TENBAN=$tenban&MABANgheptoi=$MABANgheptoi"
                 sentGet(url)
                 return
             }
@@ -306,7 +336,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val data1 = gson.toJson(XoaMonList)
             Log.e("SANPHAM6","Data: "+data1.toString()+"<br> và Tên Bàn: "+data.TENBAN)
             val tenbanchuyentoi = data.TENBAN
-            val url = "http://192.168.1.5/thach/add_bill.php?TENBAN=$tenbanchuyentoi&jsondata=$data1"
+            val url = bien().localhost+"add_bill.php?TENBAN=$tenbanchuyentoi&jsondata=$data1"
             val queue = Volley.newRequestQueue(this)
             val stringRequest = StringRequest(Request.Method.GET, url,
                 {   Log.e("SANPHAMSPDC","$url")

@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.Normalizer
+import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnClickListener {
     var banList = mutableListOf<BanModel>()
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnC
             layoutManager = GridLayoutManager(this@MainActivity,3)
             adapter = BanAdapter(banList, this@MainActivity)
         }
-    laydanhsachban()
+        laydanhsachban()
     }
 
     private fun laydanhsachban() {
@@ -71,8 +73,8 @@ class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnC
     override fun onClick(v: View?) {
         val textToPrint = "Your text here"
         val intent = Intent("pe.diegoveloper.printing")
-        //intent.setAction(android.content.Intent.ACTION_SEND);
-        //intent.setAction(android.content.Intent.ACTION_SEND);
+        intent.setAction(android.content.Intent.ACTION_SEND);
+        intent.setAction(android.content.Intent.ACTION_SEND);
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, textToPrint)
         startActivity(intent)

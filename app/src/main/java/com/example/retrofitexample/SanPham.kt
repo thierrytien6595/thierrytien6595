@@ -124,7 +124,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         val gson = Gson()
         val data = gson.toJson(SPDaChonList)
         Log.e("SANPHAM6",data.toString()+ tenban.toString())
-        val myurl = "http://192.168.1.5/thach/add_bill.php?TENBAN=$tenban&jsondata=$data"
+        val myurl = bien().localhost+"add_bill.php?TENBAN=$tenban&jsondata=$data"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,
@@ -149,7 +149,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         if (index==-1) // Nếu SP chọn chưa có trong list
         {
             if (data.SOLUONG.toInt()!=0) {
-                SPDaChonList.add(SPDaChonModel(data.TENSP, 1))
+                SPDaChonList.add(SPDaChonModel(data.TENSP, 1,"",0,data.GIASP))
             }else {Toast.makeText(this, "Hết rồi cần nhập thêm sản phầm", Toast.LENGTH_SHORT).show()}
         }
         else{// Nếu có rồi thì tăng số lượng lên
@@ -157,7 +157,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
                 Toast.makeText(this, "QUÁ SỐ LƯỢNG TRONG KHO", Toast.LENGTH_SHORT).show()
             }
             else{
-                SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1))
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1,"",0,data.GIASP))
             }
         }
         if (SPDaChonList != emptyList<SPDaChonModel>()) {
@@ -172,7 +172,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
     override fun onBtnGiamClick(tensp: String) {
         val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==tensp})
         if(index!=-1) {
-            SPDaChonList.set(index, SPDaChonModel(tensp, SPDaChonList[index].SOLUONG - 1))
+            SPDaChonList.set(index, SPDaChonModel(tensp, SPDaChonList[index].SOLUONG - 1,"",0,SPDaChonList[index].DONGIA))
             if (SPDaChonList[index].SOLUONG == 0) SPDaChonList.removeAt(index)
             rev_chonmon2.adapter?.notifyDataSetChanged()
         }
@@ -181,7 +181,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
     override fun onItemDaChonClick(data: SPDaChonModel) {
         val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==data.TENSP})
         SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG,
-            edittext.text.toString()
+            edittext.text.toString(),SPDaChonList[index].TRANGTHAIMON,SPDaChonList[index].DONGIA
         ))
         rev_chonmon2.adapter?.notifyDataSetChanged()
     }
