@@ -20,6 +20,7 @@ $masp= Get_MASP($tensp);
 $CHUTHICH = $myjson1[$key]->CHUTHICH;
 $SOLUONG = $myjson1[$key]->SOLUONG;
 $TRANGTHAIMON = $myjson1[$key]->TRANGTHAIMON;
+(int)$MonPhu = $myjson1[$key]->MonPhu;
 include 'connect.php';
 $sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON";
 $result = $conn->query($sql);
@@ -30,10 +31,24 @@ if ($result->num_rows > 0) {
 	$SOLUONG = $row['SOLUONG']-$SOLUONG;
 	if($SOLUONG!=0){
 	$sql1 = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON;";
-	$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
+	if (xulythuoc($masp,$soluong)==false) {
+		if ($MonPhu==0) {
+			echo $MonPhu;
+		$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
+		}elseif ($MonPhu!=-1) {
+			$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$MonPhu";
+		}
+	}
 	}else{
 	$sql1 = "DELETE FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=$TRANGTHAIMON;";
-	$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
+	if (xulythuoc($masp,$soluong)==false) {
+		if ($MonPhu==0) {
+			echo $MonPhu;
+			$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$masp";
+		}elseif ($MonPhu!=-1) {
+			$sql1.= "UPDATE `sanpham` SET SOLUONG=SOLUONG+$soluong WHERE MASP=$MonPhu";
+		}
+	}
 	}
 	$result1 = $conn->multi_query($sql1);
 	}
@@ -64,4 +79,41 @@ function responseApp($TENBAN,$jsondata){
 		}
 		echo json_encode($SPArray);
 		}
+
+function xulythuoc($MASP,$SOLUONG){
+	include 'connect.php';
+	// Nếu là điếu
+	if ($MASP==102||$MASP==104||$MASP==108) {
+		$sql = "SELECT SOLUONG FROM `sanpham` WHERE MASP=$MASP";	
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		$SOLUONG += $row['SOLUONG'];
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		//Cập nhật gói
+		$MASP+=1; // MASP của gói
+		$SOLUONG = floor($SOLUONG/20); // Số lượng gói thuốc.
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		return true;
+	}
+	// Nếu là gói
+	if ($MASP==103||$MASP==105||$MASP==109) {
+		$MASP-=1;
+		$SOLUONG*=20;
+		$sql = "SELECT SOLUONG FROM `sanpham` WHERE MASP=$MASP";	
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		$SOLUONG += $row['SOLUONG'];
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		//Cập nhật gói
+		$MASP+=1; // MASP của gói
+		$SOLUONG = floor($SOLUONG/20); // Số lượng gói thuốc.
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);	
+		return true;
+	}
+	return false;
+}
 ?>

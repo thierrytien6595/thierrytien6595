@@ -34,7 +34,9 @@ foreach ($huymonArray as $key => $value) {
 		$TENSP = $row['TENSP'];
 		array_push($SPArray,new SP($TENSP,$SOLUONG));
 	}
-	array_push($chitietArray, new chitiet($ID,$TENNV,$LYDO,$TIME,$SPArray));
+	if ($LYDO!=NULL) {
+		array_push($chitietArray, new chitiet($ID,$TENNV,$LYDO,$TIME,$SPArray));
+	}
 }
 echo json_encode($chitietArray);
 class HuyMon{

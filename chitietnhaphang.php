@@ -35,7 +35,10 @@ foreach($nhaphangArray as $key => $value) {
 		$TONGTIEN +=$SOLUONG*$DONGIA; 
 		array_push($SPArray,new SPNHAP($TENSP,$SOLUONG,$DONGIA));
 	}
-	array_push($chitietArray, new chitiet($ID,$TENNV,$TIME,$TONGTIEN,$SPArray));
+	if ($TONGTIEN!=0) {
+		array_push($chitietArray, new chitiet($ID,$TENNV,$TIME,$TONGTIEN,$SPArray));
+	}
+	
 }
 echo json_encode($chitietArray);
 class NhapHang{

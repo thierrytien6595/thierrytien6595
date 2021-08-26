@@ -18,23 +18,40 @@ include 'connect.php';
 
     foreach ($myjson1 as $key => $value) {
 	$tensp = $myjson1[$key]->TENSP;
-	$masp= Get_MASP($tensp);
+	$MASP= Get_MASP($tensp);
 	$CHUTHICH = $myjson1[$key]->CHUTHICH;
-	$SOLUONG = $myjson1[$key]->SOLUONG;
+	$SOLUONG = $myjson1[$key]->SOLUONG; // 5
+	$mSOLUONG = $SOLUONG;
+	(int)$MonPhu = $myjson1[$key]->MonPhu;
 	include 'connect.php';
-	$sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=0";
+	$sql = "SELECT * FROM `chitietbanhang` WHERE MAHD=$MAHD AND MASP=$MASP AND TRANGTHAIMON=0";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
 		$CHUTHICH = $CHUTHICH." ".$row['CHUTHICH'];
 		$SOLUONG = $SOLUONG + $row['SOLUONG'];
-		$sql = "UPDATE `chitietbanhang` SET SOLUONG=SOLUONG-$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$masp AND TRANGTHAIMON=0;";
-		$sql.= "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$masp";
+		$sql = "UPDATE `chitietbanhang` SET SOLUONG=$SOLUONG,CHUTHICH='$CHUTHICH' WHERE MAHD=$MAHD AND MASP=$MASP AND TRANGTHAIMON=0;";
+		// Nếu SP có tính số lượng tức $MonPhu=0
+		if (xulythuoc($MASP,$mSOLUONG)==false) {
+			if ($MonPhu==0) {
+				$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$mSOLUONG WHERE MASP=$MASP";
+			// Nếu SP có tính số lượng nhưng có món phụ thuộc (=-1 tức là món không tính số lượng được)
+			}elseif($MonPhu!=-1){
+				$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$mSOLUONG WHERE MASP=$MonPhu";
+			}
+		}
 		$result = $conn->multi_query($sql);
  		}
  		else{
- 		$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$masp','$SOLUONG',0,'$CHUTHICH');";
- 		$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$SOLUONG WHERE MASP=$masp";
+ 		$sql = "INSERT INTO `chitietbanhang` VALUES ('$MAHD','$MASP','$SOLUONG',0,'$CHUTHICH');";
+ 		// Nếu SP có tính số lượng tức $MonPhu=0
+ 		if (xulythuoc($MASP,$mSOLUONG)==false) {
+	 		if ($MonPhu==0) {
+	 			$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$mSOLUONG WHERE MASP=$MASP";	
+	 		}elseif($MonPhu!=-1){
+	 			$sql.= "UPDATE `sanpham` SET SOLUONG=SOLUONG-$mSOLUONG WHERE MASP=$MonPhu";	
+	 		}
+	 	}
 		$result = $conn->multi_query($sql);
  		}
 	}
@@ -56,4 +73,40 @@ function responseApp($TENBAN,$jsondata){
 		}
 		echo json_encode($SPArray);
 		}
+function xulythuoc($MASP,$SOLUONG){
+	include 'connect.php';
+	// Nếu là điếu
+	if ($MASP==102||$MASP==104||$MASP==108) {
+		$sql = "SELECT SOLUONG FROM `sanpham` WHERE MASP=$MASP";	
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		$SOLUONG = $row['SOLUONG'] - $SOLUONG;
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		//Cập nhật gói
+		$MASP+=1; // MASP của gói
+		$SOLUONG = floor($SOLUONG/20); // Số lượng gói thuốc.
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		return true;
+	}
+	// Nếu là gói
+	if ($MASP==103||$MASP==105||$MASP==109) {
+		$MASP-=1;
+		$SOLUONG*=20;
+		$sql = "SELECT SOLUONG FROM `sanpham` WHERE MASP=$MASP";	
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		$SOLUONG = $row['SOLUONG']-$SOLUONG;
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);
+		//Cập nhật gói
+		$MASP+=1; // MASP của gói
+		$SOLUONG = floor($SOLUONG/20); // Số lượng gói thuốc.
+		$sql = "UPDATE `sanpham` SET SOLUONG=$SOLUONG WHERE MASP=$MASP";
+		$result = $conn->query($sql);	
+		return true;
+	}
+	return false;
+}
 ?>
