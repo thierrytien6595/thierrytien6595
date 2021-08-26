@@ -1,11 +1,11 @@
-package com.example.retrofitexample.BAN
+package com.example.thachcoffee.BAN
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitexample.R
+import com.example.thachcoffee.R
 import kotlinx.android.synthetic.main.ban_item.view.*
 class BanAdapter(private val banList: MutableList<BanModel>, private val listener: BanAdapter.OnItemClickListener) :
     RecyclerView.Adapter<BanAdapter.BanViewHolder>()

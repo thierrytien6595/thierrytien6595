@@ -71,16 +71,16 @@
         android:onClick="onClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
+
     <Button
         android:id="@+id/btn_thanhtoan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TÍNH TIỀN"
-        android:onClick="onClick"
-        android:textSize="24sp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        />
+        android:layout_alignParentBottom="true"
+        android:onClick="onClick"
+        android:text="TÍNH TIỀN"
+        android:textSize="24sp" />
 
 
 </RelativeLayout>

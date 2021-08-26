@@ -1,4 +1,4 @@
-package com.example.retrofitexample
+package com.example.thachcoffee
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,38 +7,29 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.retrofitexample.BAN.ApiServiceBan
-import com.example.retrofitexample.BAN.BanAdapter
-import com.example.retrofitexample.BAN.BanModel
-import com.example.retrofitexample.BAN.ServiceGenerator
-import com.example.retrofitexample.SANPHAM.SPService
-import com.example.retrofitexample.SPDACHON.SPDaChonAdapter
-import com.example.retrofitexample.SPDACHON.SPDaChonModel
-import com.example.retrofitexample.SPDACHON.listmon
-import com.example.retrofitexample.THEMXOASP.TachDonAdapter
-import com.example.retrofitexample.THEMXOASP.ThemXoaSPAdapter
+import com.example.thachcoffee.BAN.ApiServiceBan
+import com.example.thachcoffee.BAN.BanAdapter
+import com.example.thachcoffee.BAN.BanModel
+import com.example.thachcoffee.BAN.ServiceGenerator
+import com.example.thachcoffee.SANPHAM.SPService
+import com.example.thachcoffee.SPDACHON.SPDaChonAdapter
+import com.example.thachcoffee.SPDACHON.SPDaChonModel
+import com.example.thachcoffee.THEMXOASP.TachDonAdapter
+import com.example.thachcoffee.THEMXOASP.ThemXoaSPAdapter
 import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_san_pham.*
 import kotlinx.android.synthetic.main.activity_san_pham_da_chon.*
 import kotlinx.android.synthetic.main.spdc_item.*
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -75,6 +66,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 response: Response<MutableList<SPDaChonModel>>
             ) {
                 if (response.isSuccessful) {
+                    Log.e("SANPHAM",response.body().toString())
                     SPDaChonList.clear()
                     SPDaChonList.addAll(response.body()!!)
                     rev_dachon.adapter?.notifyDataSetChanged()
@@ -103,7 +95,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             Log.e("SANPHAM:","type =0")
             val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
-                SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG - 1,"",0,data.DONGIA))
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG - 1,"",0,data.DONGIA,data.MonPhu))
                 if (SPDaChonList[index].SOLUONG == 0) SPDaChonList.removeAt(index)
                 rev_dachon.adapter?.notifyDataSetChanged()
             }
@@ -111,9 +103,9 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val index1 = XoaMonList.lastIndexOf(XoaMonList.findLast { it.TENSP == data.TENSP })
             if (index1 == -1) // Nếu SP chọn chưa có trong list
             {
-                XoaMonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA))
+                XoaMonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA,data.MonPhu))
             } else {// Nếu có rồi thì tăng số lượng lên
-                XoaMonList.set(index1, SPDaChonModel(data.TENSP, XoaMonList[index1].SOLUONG + 1,"",0,data.DONGIA))
+                XoaMonList.set(index1, SPDaChonModel(data.TENSP, XoaMonList[index1].SOLUONG + 1,"",0,data.DONGIA,data.MonPhu))
             }
             if (XoaMonList != emptyList<SPDaChonModel>()) {
                 layoutxoamon.visibility = View.VISIBLE
@@ -125,7 +117,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             Log.e("SANPHAM:","type =1")
             val index = XoaMonList.lastIndexOf(XoaMonList.findLast { it.TENSP == data.TENSP })
             if (index != -1) {
-                XoaMonList.set(index, SPDaChonModel(data.TENSP, XoaMonList[index].SOLUONG - 1,"",0,data.DONGIA))
+                XoaMonList.set(index, SPDaChonModel(data.TENSP, XoaMonList[index].SOLUONG - 1,"",0,data.DONGIA,data.MonPhu))
                 if (XoaMonList[index].SOLUONG == 0) XoaMonList.removeAt(index)
                 rev_xoamon.adapter?.notifyDataSetChanged()
             }
@@ -133,9 +125,9 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val index1 = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
             if (index1 == -1) // Nếu SP chọn chưa có trong list
             {
-                SPDaChonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA))
+                SPDaChonList.add(SPDaChonModel(data.TENSP, 1,data.CHUTHICH,data.TRANGTHAIMON,data.DONGIA,data.MonPhu))
             } else {// Nếu có rồi thì tăng số lượng lên
-                SPDaChonList.set(index1, SPDaChonModel(data.TENSP, SPDaChonList[index1].SOLUONG + 1,"",0,data.DONGIA))
+                SPDaChonList.set(index1, SPDaChonModel(data.TENSP, SPDaChonList[index1].SOLUONG + 1,"",0,data.DONGIA,data.MonPhu))
             }
             if (SPDaChonList != emptyList<SPDaChonModel>()) {
                 rev_dachon.adapter?.notifyDataSetChanged()
@@ -264,11 +256,14 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
                 true
                 }
             R.id.tachdon-> {
+                edt_lydo.visibility=View.GONE
                 btn_thongbao_xoamon.text = "TÁCH ĐƠN"
                 tachdon()
+                btn_thanhtoan.visibility = View.INVISIBLE
                 true
             }
             R.id.xoamon-> {
+                edt_lydo.visibility=View.VISIBLE
                 btn_thongbao_xoamon.text="HỦY MÓN"
                 hienxoamon()
                 true
@@ -340,6 +335,7 @@ class SanPhamDaChon : AppCompatActivity(),SPDaChonAdapter.OnItemClickListener,
             val queue = Volley.newRequestQueue(this)
             val stringRequest = StringRequest(Request.Method.GET, url,
                 {   Log.e("SANPHAMSPDC","$url")
+                    btn_thanhtoan.visibility=View.VISIBLE
                     thongbao()
                 },
                 {   Log.e("SANPHAMSPDC","$url")})

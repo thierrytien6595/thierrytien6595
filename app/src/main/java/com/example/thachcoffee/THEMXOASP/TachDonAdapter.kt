@@ -1,12 +1,12 @@
-package com.example.retrofitexample.THEMXOASP
+package com.example.thachcoffee.THEMXOASP
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitexample.R
-import com.example.retrofitexample.SPDACHON.SPDaChonModel
+import com.example.thachcoffee.R
+import com.example.thachcoffee.SPDACHON.SPDaChonModel
 import kotlinx.android.synthetic.main.spdc_item.view.*
 
 class TachDonAdapter(private val mModel: MutableList<SPDaChonModel>, private val listener: OnItemClickListener):

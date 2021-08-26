@@ -1,4 +1,4 @@
-package com.example.retrofitexample.SANPHAM
+package com.example.thachcoffee.SANPHAM
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitexample.R
-import com.example.retrofitexample.bien
+import com.example.thachcoffee.R
+import com.example.thachcoffee.bien
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.mon_item.view.*
 class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val listener: SanPhamAdapter.OnItemClickListener):
@@ -22,7 +22,14 @@ class SanPhamAdapter(private val mModel: MutableList<SanPhamModel>, private val 
         val currentItem = mModel[position]
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvGIASP.text = currentItem.GIASP
-        holder.tvSOLUONG.text = currentItem.SOLUONG
+        // Nếu SP không có số lượng
+        if (currentItem.MonPhu!=0){
+            holder.tvSOLUONG.text = ""
+        }
+        // Nếu SP có số lượng
+        if(currentItem.MonPhu==0){
+            holder.tvSOLUONG.text = currentItem.SOLUONG
+        }
         val base_image_url = bien().imagelocal
         Picasso.get().load(base_image_url+currentItem.HINHSP+".jpg").into(holder.imvHINHSP)
         holder.btnGiam.setOnClickListener(){

@@ -1,4 +1,4 @@
-package com.example.retrofitexample
+package com.example.thachcoffee
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.retrofitexample.BAN.ServiceGenerator
-import com.example.retrofitexample.SANPHAM.SPService
-import com.example.retrofitexample.SANPHAM.SanPhamAdapter
-import com.example.retrofitexample.SANPHAM.SanPhamModel
-import com.example.retrofitexample.SPDACHON.SPDaChonAdapter
-import com.example.retrofitexample.SPDACHON.SPDaChonModel
-import com.example.retrofitexample.SPDACHON.listmon
+import com.example.thachcoffee.BAN.ServiceGenerator
+import com.example.thachcoffee.SANPHAM.SPService
+import com.example.thachcoffee.SANPHAM.SanPhamAdapter
+import com.example.thachcoffee.SANPHAM.SanPhamModel
+import com.example.thachcoffee.SPDACHON.SPDaChonAdapter
+import com.example.thachcoffee.SPDACHON.SPDaChonModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_san_pham.*
@@ -73,6 +72,7 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
                 response: Response<MutableList<SanPhamModel>>
             ) {
                 if (response.isSuccessful) {
+                    Log.e("SANPHAM",response.body().toString())
                     rev_chonmon.apply {
                         layoutManager = LinearLayoutManager(this@SanPham)
                         adapter = SanPhamAdapter(response.body()!!,this@SanPham)
@@ -145,28 +145,32 @@ class SanPham : AppCompatActivity(), SanPhamAdapter.OnItemClickListener,SPDaChon
         (rev_chonmon.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(index,0)
     }
     override fun onItemClick(data: SanPhamModel) {
-        val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast {it.TENSP==data.TENSP})
-        if (index==-1) // Nếu SP chọn chưa có trong list
+        val index = SPDaChonList.lastIndexOf(SPDaChonList.findLast { it.TENSP == data.TENSP })
+        if (index == -1) // Nếu SP chọn chưa có trong list
         {
-            if (data.SOLUONG.toInt()!=0) {
-                SPDaChonList.add(SPDaChonModel(data.TENSP, 1,"",0,data.GIASP))
-            }else {Toast.makeText(this, "Hết rồi cần nhập thêm sản phầm", Toast.LENGTH_SHORT).show()}
-        }
-        else{// Nếu có rồi thì tăng số lượng lên
-            if (SPDaChonList[index].SOLUONG==data.SOLUONG.toInt()){
-                Toast.makeText(this, "QUÁ SỐ LƯỢNG TRONG KHO", Toast.LENGTH_SHORT).show()
+            if (data.SOLUONG.toInt() != 0) {
+                SPDaChonList.add(SPDaChonModel(data.TENSP, 1, "", 0, data.GIASP,data.MonPhu))
+            } else {
+                Toast.makeText(this, "Hết rồi cần nhập thêm sản phầm", Toast.LENGTH_SHORT).show()
             }
-            else{
-                SPDaChonList.set(index, SPDaChonModel(data.TENSP,SPDaChonList[index].SOLUONG+1,"",0,data.GIASP))
+        } else {// Nếu có rồi thì tăng số lượng lên
+            if (data.MonPhu!=-1){
+                if (SPDaChonList[index].SOLUONG == data.SOLUONG.toInt()) {
+                    Toast.makeText(this, "QUÁ SỐ LƯỢNG TRONG KHO", Toast.LENGTH_SHORT).show()
+                } else {
+                    SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG + 1, "", 0, data.GIASP,data.MonPhu))
+                }
+            }else{
+                SPDaChonList.set(index, SPDaChonModel(data.TENSP, SPDaChonList[index].SOLUONG + 1, "", 0, data.GIASP,data.MonPhu))
             }
-        }
+            }
         if (SPDaChonList != emptyList<SPDaChonModel>()) {
             group_spdc.visibility=View.VISIBLE
             rev_chonmon2.adapter?.notifyDataSetChanged()
         }
         else {
             group_spdc.visibility = View.INVISIBLE
-        }
+            }
     }
 
     override fun onBtnGiamClick(tensp: String) {

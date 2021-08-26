@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/acer/Desktop/RetrofitExample/app/src/main/res/layout/activity_main.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/acer/Desktop/RetrofitExample/app/src/main/res/layout/activity_san_pham.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/acer/Desktop/RetrofitExample/app/src/main/res/layout/activity_san_pham_da_chon.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/acer/Desktop/RetrofitExample/app/src/main/res/layout/mon_item.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/acer/Desktop/RetrofitExample/app/src/main/res/menu/menu_main.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/acer/Desktop/THACH_COFFEE/app/src/main/res/layout/activity_san_pham.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/acer/Desktop/THACH_COFFEE/app/src/main/res/layout/mon_item.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

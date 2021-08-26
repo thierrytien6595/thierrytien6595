@@ -1,21 +1,19 @@
-package com.example.retrofitexample
+package com.example.thachcoffee
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.retrofitexample.BAN.ApiServiceBan
-import com.example.retrofitexample.BAN.BanAdapter
-import com.example.retrofitexample.BAN.BanModel
-import com.example.retrofitexample.BAN.ServiceGenerator
+import com.example.thachcoffee.BAN.ApiServiceBan
+import com.example.thachcoffee.BAN.BanAdapter
+import com.example.thachcoffee.BAN.BanModel
+import com.example.thachcoffee.BAN.ServiceGenerator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.Normalizer
-import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity(),BanAdapter.OnItemClickListener,View.OnClickListener {
     var banList = mutableListOf<BanModel>()

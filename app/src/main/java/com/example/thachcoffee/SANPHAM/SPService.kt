@@ -1,7 +1,7 @@
-package com.example.retrofitexample.SANPHAM
+package com.example.thachcoffee.SANPHAM
 
-import com.example.retrofitexample.SPDACHON.SPDaChonModel
-import com.example.retrofitexample.SPDACHON.listmon
+import com.example.thachcoffee.SPDACHON.SPDaChonModel
+import com.example.thachcoffee.SPDACHON.listmon
 import retrofit2.Call
 import retrofit2.http.*
 

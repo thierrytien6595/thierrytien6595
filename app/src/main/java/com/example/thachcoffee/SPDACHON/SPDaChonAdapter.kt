@@ -1,13 +1,10 @@
-package com.example.retrofitexample.SPDACHON
+package com.example.thachcoffee.SPDACHON
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitexample.R
-import kotlinx.android.synthetic.main.activity_san_pham.*
-import kotlinx.android.synthetic.main.dachon_item.*
+import com.example.thachcoffee.R
 import kotlinx.android.synthetic.main.dachon_item.view.*
 
 class SPDaChonAdapter(private val mModel: MutableList<SPDaChonModel>,private val listener: OnItemClickListener):
