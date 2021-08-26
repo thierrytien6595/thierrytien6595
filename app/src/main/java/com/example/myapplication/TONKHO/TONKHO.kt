@@ -28,7 +28,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tonkho)
-        group_nhapkho.visibility = View.GONE
+        rev_chonmon2.visibility = View.GONE
         rev_chonmon2.apply {
             layoutManager = LinearLayoutManager(this@TONKHO)
             adapter = ThemAdapter(SPNhapList,this@TONKHO)
@@ -42,7 +42,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
 
     private fun capnhatSP() {
         val serviceGenerator = ServiceGenerator.buildService(APIService::class.java)
-        val call = serviceGenerator.getSP()
+        val call = serviceGenerator.getSP("quanly")
         call.enqueue(object : Callback<MutableList<SanPhamModel>> {
             override fun onResponse(
                 call: Call<MutableList<SanPhamModel>>,
@@ -70,18 +70,6 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
 
     fun onClick(v: View?) {
         when(v?.id){
-            btn_caphe.id -> nhaydenvitri(0)
-            btn_nuocngot.id -> nhaydenvitri(15)
-            btn_tra.id -> nhaydenvitri(33)
-            btn_sinhto.id -> nhaydenvitri(47)
-            btn_nuocep.id -> nhaydenvitri(56)
-            btn_yogurt.id-> nhaydenvitri(72)
-            btn_soda.id-> nhaydenvitri(81)
-            btn_daxay.id-> nhaydenvitri(87)
-            btn_kem.id-> nhaydenvitri(93)
-            btn_doan.id-> nhaydenvitri(96)
-            btn_thuoc.id -> nhaydenvitri(100)
-            btn_khac.id -> nhaydenvitri(108)
             btn_nhapkho.id -> {
                 rev_chonmon2.adapter?.notifyDataSetChanged()
                 for (i in 0 until SPNhapList.size){
@@ -98,11 +86,6 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
             }
         }
     }
-
-    private fun nhaydenvitri(index :Int) {
-        (rev_chonmon.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(index,0)
-    }
-
     override fun onItemClick(data: SanPhamModel) {
         val index = SPNhapList.lastIndexOf(SPNhapList.findLast {it.TENSP==data.TENSP})
         if (index==-1) // Nếu SP chọn chưa có trong list
@@ -113,11 +96,11 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
             SPNhapList.removeAt(index)
         }
         if (SPNhapList != emptyList<SanPhamModel>()) {
-            group_nhapkho.visibility=View.VISIBLE
+            rev_chonmon2.visibility=View.VISIBLE
             rev_chonmon2.adapter?.notifyDataSetChanged()
         }
         else {
-            group_nhapkho.visibility=View.GONE
+            rev_chonmon2.visibility=View.GONE
         }
     }
 
@@ -148,14 +131,10 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
         }
     }
 
-    override fun onimvEDIT(MASP: String) {
-
-    }
-
     private fun sentData(data: MutableList<SanPhamModel>){
         val gson = Gson()
         val data = gson.toJson(data)
-        val myurl = BIEN().url()+"nhaphang.php?data=$data"
+        val myurl = BIEN().local+"nhaphang.php?data=$data"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,
@@ -171,7 +150,7 @@ class TONKHO : AppCompatActivity(), SPAdapter.OnItemClickListener, ThemAdapter.O
             Log.e("test", "TONKHO onDestroy()")
             val gson = Gson()
             val data = gson.toJson(NhapList)
-            val myurl = BIEN().url() + "nhaphang.php?data1=$data"
+            val myurl = BIEN().local + "nhaphang.php?data1=$data"
             val queue = Volley.newRequestQueue(this)
             val stringRequest = StringRequest(
                 Request.Method.GET, myurl,

@@ -113,7 +113,7 @@ class DanhsachNVFragment : Fragment(), DanhSachAdapter.OnItemClickListener {
     }
 
     private fun xoanhanvien(manv: Int) {
-        val myurl = BIEN().url()+"nhanvien.php?MANV=$manv"
+        val myurl = BIEN().local+"nhanvien.php?MANV=$manv"
         val queue = Volley.newRequestQueue(activity)
         val stringRequest = StringRequest(
             Request.Method.GET, myurl,

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_lich_n_v.*
 import kotlinx.android.synthetic.main.fragment_them_n_v.*
 
 class NHANVIEN : AppCompatActivity(){
-    val localhost = BIEN().url()
+    val localhost = BIEN().local
     private lateinit var themNVFragment: ThemNVFragment
     private lateinit var danhsachNVFragment: DanhsachNVFragment
     private lateinit var lichNVFragment: LichNVFragment

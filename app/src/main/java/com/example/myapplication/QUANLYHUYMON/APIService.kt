@@ -20,7 +20,7 @@ interface APIService {
     fun quanlydata(@Query("ID") ID:Int) : Call<MutableList<quanlyItem>>
 
     @GET("sanpham.php")
-    fun getSP() :Call<MutableList<SanPhamModel>>
+    fun getSP(@Query("QL") QL:String) :Call<MutableList<SanPhamModel>>
 
     @GET("sanpham.php?")
     fun editSP(@Query("MASP") MASP:String, @Query("EDIT") EDIT:Int) :Call<MutableList<SanPhamModel>>

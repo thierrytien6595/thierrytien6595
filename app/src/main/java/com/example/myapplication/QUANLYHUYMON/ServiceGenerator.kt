@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceGenerator {
-    val url = BIEN().url()
+    val url = BIEN().local
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder()
         .baseUrl(url)

@@ -23,7 +23,7 @@ class SPAdapter(private val mModel: MutableList<SanPhamModel>, private val liste
         holder.tvTENSP.text = currentItem.TENSP
         holder.tvGIASP.text = currentItem.GIASP
         holder.tvSOLUONG.text = currentItem.SOLUONG.toString()
-        val base_image_url = BIEN().url()
+        val base_image_url = BIEN().local+"image/"
         Picasso.get().load(base_image_url+currentItem.HINHSP+".jpg").into(holder.imvHINHSP)
     }
 
@@ -48,7 +48,6 @@ class SPAdapter(private val mModel: MutableList<SanPhamModel>, private val liste
     }
     interface OnItemClickListener {
         fun onItemClick(data: SanPhamModel)
-        fun onimvEDIT(MASP: String)
     }
 }
 

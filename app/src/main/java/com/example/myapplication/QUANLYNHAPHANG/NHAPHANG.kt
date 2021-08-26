@@ -37,7 +37,6 @@ class NHAPHANG : AppCompatActivity() {
                     hienthi()
                 }
             }
-
             override fun onFailure(call: Call<MutableList<chitietdataItemNhap>>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("MAIN2", t.message.toString())
